@@ -1,6 +1,6 @@
 import js from '@eslint/js';
 import globals from 'globals';
-import { defineConfig } from 'eslint/config';
+import { defineConfig, globalIgnores } from 'eslint/config';
 
 import tseslint from 'typescript-eslint';
 import reactPlugin from 'eslint-plugin-react';
@@ -37,4 +37,5 @@ export default defineConfig([
       vitest.configs.all,
     ],
   },
+  globalIgnores(['server/**/*', '.react-router/**/*', '.netlify/**/*']),
 ]);

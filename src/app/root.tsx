@@ -1,3 +1,5 @@
+import '@mantine/core/styles.css';
+
 import {
   isRouteErrorResponse,
   Links,
@@ -7,22 +9,29 @@ import {
   ScrollRestoration,
 } from 'react-router';
 
-import type { Route } from './+types/root';
 import { useTranslation } from 'react-i18next';
+import {
+  ColorSchemeScript,
+  MantineProvider,
+  mantineHtmlProps,
+} from '@mantine/core';
+
+import type { Route } from './+types/root';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { i18n } = useTranslation();
 
   return (
-    <html lang={i18n.language}>
+    <html lang={i18n.language} {...mantineHtmlProps}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
+        <ColorSchemeScript />
         <Links />
       </head>
       <body>
-        {children}
+        <MantineProvider>{children}</MantineProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

@@ -15,6 +15,8 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@mantine/core": "^8.2.8",
+    "@mantine/hooks": "^8.2.8",
     "@netlify/functions": "^3.1.10",
     "@react-router/node": "^7.7.1",
     "i18next": "^25.4.2",
@@ -56,6 +58,9 @@
     "jsdom": "^26.1.0",
     "lint-staged": "^16.1.6",
     "netlify-cli": "^1.2.3",
+    "postcss": "^8.5.6",
+    "postcss-preset-mantine": "^1.18.0",
+    "postcss-simple-vars": "^7.0.1",
     "prettier": "3.6.2",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3",

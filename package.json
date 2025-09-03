@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest --ui",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "prepare": "husky"
   },
   "dependencies": {
     "@netlify/functions": "^3.1.10",
@@ -44,7 +45,9 @@
     "eslint-plugin-testing-library": "^7.6.8",
     "express": "^5.1.0",
     "globals": "^16.3.0",
+    "husky": "^9.1.7",
     "jsdom": "^26.1.0",
+    "lint-staged": "^16.1.6",
     "netlify-cli": "^1.2.3",
     "prettier": "3.6.2",
     "tailwindcss": "^4.1.4",

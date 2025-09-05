@@ -4,9 +4,12 @@ import i18next from '@/app/i18n';
 import { Button, Group, Container, Image, Divider } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 
-export default function Header() {
+type Props = {
+  isUserLog: boolean;
+};
+export default function Header({ isUserLog }: Props) {
   const { t } = useTranslation();
-  const user = false;
+
   return (
     <>
       <Container py="md" px="xl" fluid>
@@ -16,7 +19,7 @@ export default function Header() {
               <Image src={logo} width={60} height={60} alt="Logo" />
             </Link>
             <Group ml="md">
-              {user ? (
+              {isUserLog ? (
                 <Button variant="subtle">Sign Out</Button>
               ) : (
                 <>
@@ -40,7 +43,7 @@ export default function Header() {
             {i18next.supportedLngs.map((language) => (
               <Button
                 variant="default"
-                size="xs"
+                size="sm"
                 component={Link}
                 to={`/${language}`}
                 key={language}

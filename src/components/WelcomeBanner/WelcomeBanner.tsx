@@ -1,5 +1,6 @@
 import { Button, Center, Group, Stack, Text } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
+import { NavBar } from '@/components';
 
 type Props = {
   isUserLog: boolean;
@@ -7,16 +8,19 @@ type Props = {
 export default function WelcomeBanner({ isUserLog }: Props) {
   const { t } = useTranslation();
   return (
-    <Center h="100%" py="xl">
+    <Center py="xl">
       <Stack align="center" gap="md">
         {isUserLog ? (
-          <Text size="xl" fw={600}>
-            {t('welcomeBanner.back')}, {'user'}!
-          </Text>
+          <>
+            <Text size="xl" fw={600}>
+              {t('home.back')}, {'user'}!
+            </Text>
+            <NavBar />
+          </>
         ) : (
           <>
             <Text size="xl" fw={600}>
-              {t('welcomeBanner.greetings')}!
+              {t('home.greetings')}!
             </Text>
             <Group>
               <Button variant="default" size="md">

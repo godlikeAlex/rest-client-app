@@ -2,6 +2,12 @@ export default {
   homeTitle: 'Home Page',
   buttonSignIn: 'Sign In',
   buttonSignUp: 'Sign Up',
+  buttonSignOut: 'Sign Out',
+  greetings: 'Welcome',
+  back: 'Welcome back',
+  restButton: 'REST Client',
+  historyButton: 'History',
+  variablesButton: 'Variables',
   seo: {
     title: 'Home Page',
     description:

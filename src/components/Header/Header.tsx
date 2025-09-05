@@ -20,7 +20,7 @@ export default function Header({ isUserLog }: Props) {
             </Link>
             <Group ml="md">
               {isUserLog ? (
-                <Button variant="subtle">Sign Out</Button>
+                <Button variant="subtle">{t('home.buttonSignOut')}</Button>
               ) : (
                 <>
                   <Button

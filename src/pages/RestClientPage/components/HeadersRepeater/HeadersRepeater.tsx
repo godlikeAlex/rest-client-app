@@ -1,9 +1,12 @@
 import { Button, Center, Table } from '@mantine/core';
-import RepeaterRow from './RepeaterRow';
+import { useTranslation } from 'react-i18next';
 
+import RepeaterRow from './RepeaterRow';
 import useHeaders from '@/pages/RestClientPage/hooks/useHeaders';
 
 export default function HeadersRepeater() {
+  const { t } = useTranslation();
+
   const { headers, addHeader, updateHeader, deleteHeader } = useHeaders();
 
   const headerRows = headers.map(({ key, value, enabled }, index) => (
@@ -21,8 +24,8 @@ export default function HeadersRepeater() {
         <Table.Thead>
           <Table.Tr>
             <Table.Th w={50} />
-            <Table.Th>Key</Table.Th>
-            <Table.Th>Value</Table.Th>
+            <Table.Th>{t('restClient.headersRepeater.key')}</Table.Th>
+            <Table.Th>{t('restClient.headersRepeater.value')}</Table.Th>
             <Table.Th w={50} />
           </Table.Tr>
         </Table.Thead>
@@ -32,7 +35,7 @@ export default function HeadersRepeater() {
 
       <Center>
         <Button mt={'xs'} variant="light" onClick={() => addHeader()}>
-          Add Header
+          {t('restClient.headersRepeater.addHeader')}
         </Button>
       </Center>
     </>

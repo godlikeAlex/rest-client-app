@@ -8,7 +8,6 @@ import {
   ScrollArea,
   Select,
   Tabs,
-  Title,
 } from '@mantine/core';
 import {
   IconWorld,
@@ -22,8 +21,11 @@ import { WaitingResponseSection } from './components/WaitingResponseSection';
 import { HeadersRepeater } from './components/HeadersRepeater';
 
 import { BodyTab } from './components';
+import { useTranslation } from 'react-i18next';
 
 export default function RestClientPage() {
+  const { t } = useTranslation();
+
   return (
     <Container mt={25}>
       <Flex gap={'sm'} w={'100%'}>
@@ -32,9 +34,13 @@ export default function RestClientPage() {
           defaultValue={'GET'}
           allowDeselect={false}
         />
-        <Input placeholder="Enter URL" flex={1} leftSection={<IconWorld />} />
+        <Input
+          placeholder={t('restClient.placeholderUrl')}
+          flex={1}
+          leftSection={<IconWorld />}
+        />
         <Button color="green" leftSection={<IconSend />}>
-          Send
+          {t('restClient.sendButton')}
         </Button>
       </Flex>
 
@@ -45,13 +51,13 @@ export default function RestClientPage() {
             value="headers"
             leftSection={<IconList size={14} />}
           >
-            Headers
+            {t('restClient.headers')}
           </Tabs.Tab>
           <Tabs.Tab value="body" leftSection={<IconJson size={14} />}>
-            Body
+            {t('restClient.body')}
           </Tabs.Tab>
           <Tabs.Tab value="code" leftSection={<IconCode size={14} />}>
-            Code Generation
+            {t('restClient.codeGeneration')}
           </Tabs.Tab>
         </Tabs.List>
         <ScrollArea h={250}>
@@ -69,8 +75,6 @@ export default function RestClientPage() {
 
       <Box component="section" py="xs">
         <Divider />
-
-        <Title order={4}>Response</Title>
 
         <WaitingResponseSection />
       </Box>

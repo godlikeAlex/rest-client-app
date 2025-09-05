@@ -1,6 +1,7 @@
 import type { HeaderClient } from '@/types/headers';
 import { ActionIcon, Checkbox, Input, Table } from '@mantine/core';
 import { IconTrash } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   onChange: <K extends keyof HeaderClient>(
@@ -12,6 +13,8 @@ interface Props {
 }
 
 export default function RepeaterRow({ onChange, onDelete, inputs }: Props) {
+  const { t } = useTranslation();
+
   return (
     <Table.Tr
       bg={!inputs.enabled ? 'var(--mantine-color-gray-light)' : undefined}
@@ -28,7 +31,7 @@ export default function RepeaterRow({ onChange, onDelete, inputs }: Props) {
         <Input
           size="xs"
           variant="unstyled"
-          placeholder="Key"
+          placeholder={t('restClient.headersRepeater.key')}
           name="key"
           value={inputs.key}
           onChange={(e) => onChange('key', e.target.value)}
@@ -38,7 +41,7 @@ export default function RepeaterRow({ onChange, onDelete, inputs }: Props) {
         <Input
           size="xs"
           variant="unstyled"
-          placeholder="Value"
+          placeholder={t('restClient.headersRepeater.value')}
           name="value"
           value={inputs.value}
           onChange={(e) => onChange('value', e.target.value)}

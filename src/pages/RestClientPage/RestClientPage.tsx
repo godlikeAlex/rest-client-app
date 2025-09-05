@@ -19,6 +19,7 @@ import {
 } from '@tabler/icons-react';
 
 import { WaitingResponseSection } from './components/WaitingResponseSection';
+import { HeadersRepeater } from './components/HeadersRepeater';
 
 import { BodyTab } from './components';
 
@@ -55,7 +56,7 @@ export default function RestClientPage() {
         </Tabs.List>
         <ScrollArea h={250}>
           <Tabs.Panel value="headers" py="xs">
-            Headers Repeater
+            <HeadersRepeater />
           </Tabs.Panel>
           <Tabs.Panel value="body" py="xs">
             <BodyTab />

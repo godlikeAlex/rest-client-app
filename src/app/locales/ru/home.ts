@@ -1,5 +1,7 @@
 export default {
   homeTitle: 'Главная страница',
+  buttonSignUp: 'Зарегистрироваться',
+  buttonSignIn: 'Войти',
   seo: {
     title: 'Главная страница',
     description:

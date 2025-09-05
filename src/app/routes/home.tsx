@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import type { Route } from './+types/home';
 import i18next from '@/app/i18next.server';
 import { data } from 'react-router';
-import { Header } from '@/components';
+import { Footer, Header } from '@/components';
 
 export async function loader({ request }: Route.LoaderArgs) {
   const t = await i18next.getFixedT(request);
@@ -27,6 +27,7 @@ export default function Home() {
     <main>
       <Header />
       <h1>{t('home.homeTitle')}</h1>
+      <Footer />
     </main>
   );
 }

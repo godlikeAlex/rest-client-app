@@ -1,5 +1,7 @@
 export default {
   homeTitle: 'Home Page',
+  buttonSignIn: 'Sign In',
+  buttonSignUp: 'Sign Up',
   seo: {
     title: 'Home Page',
     description:

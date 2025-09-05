@@ -24,6 +24,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang={i18n.language} {...mantineHtmlProps}>
       <head>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>Rest Client</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />

@@ -8,7 +8,7 @@ type Props = {
 export default function WelcomeBanner({ isUserLog }: Props) {
   const { t } = useTranslation();
   return (
-    <Center py="xl">
+    <Center py="xl" mih="760px">
       <Stack align="center" gap="md">
         {isUserLog ? (
           <>

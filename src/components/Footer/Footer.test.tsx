@@ -1,5 +1,5 @@
 import { describe, it } from 'vitest';
 
 describe.todo('footer component', () => {
-  it.todo('');
+  it.todo('need to render img');
 });

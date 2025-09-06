@@ -1,7 +1,7 @@
 import type { Route } from './+types/home';
 import i18next from '@/app/i18next.server';
-import { data } from 'react-router';
-import { Footer, Header, WelcomeBanner } from '@/components';
+import { data, Outlet } from 'react-router';
+import { Footer, Header } from '@/components';
 
 export async function loader({ request }: Route.LoaderArgs) {
   const t = await i18next.getFixedT(request);
@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <main>
       <Header isUserLog={user} />
-      <WelcomeBanner isUserLog={user} />
+      <Outlet />
       <Footer />
     </main>
   );

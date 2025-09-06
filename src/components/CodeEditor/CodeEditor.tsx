@@ -3,7 +3,7 @@ import { json } from '@codemirror/lang-json';
 import { javascript } from '@codemirror/lang-javascript';
 import { html } from '@codemirror/lang-html';
 
-import * as ghThemes from '@uiw/codemirror-theme-github';
+import { githubLight } from '@uiw/codemirror-theme-github';
 
 const LANGUAGES = {
   javascript: () => javascript(),
@@ -29,7 +29,7 @@ export default function CodeEditor({
   return (
     <CodeMirror
       value={value}
-      theme={ghThemes.githubLight}
+      theme={githubLight}
       height="200px"
       extensions={[
         targetLanguageProcessor(),

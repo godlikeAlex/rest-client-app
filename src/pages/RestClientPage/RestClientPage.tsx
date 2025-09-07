@@ -4,7 +4,7 @@ import { IconList, IconJson, IconCode } from '@tabler/icons-react';
 import { WaitingResponseSection } from './components/WaitingResponseSection';
 import { HeadersRepeater } from './components/HeadersRepeater';
 
-import { BodyTab, RequestForm } from './components';
+import { BodyTab, CodeGenerationTab, RequestForm } from './components';
 import { useTranslation } from 'react-i18next';
 
 export default function RestClientPage() {
@@ -27,10 +27,10 @@ export default function RestClientPage() {
             {t('restClient.body')}
           </Tabs.Tab>
           <Tabs.Tab value="code" leftSection={<IconCode size={14} />}>
-            {t('restClient.codeGeneration')}
+            {t('restClient.codeGeneration.tabTitle')}
           </Tabs.Tab>
         </Tabs.List>
-        <ScrollArea h={250}>
+        <ScrollArea h={250} scrollbarSize={5} offsetScrollbars={'y'} pr={5}>
           <Tabs.Panel value="headers" py="xs">
             <HeadersRepeater />
           </Tabs.Panel>
@@ -38,7 +38,7 @@ export default function RestClientPage() {
             <BodyTab />
           </Tabs.Panel>
           <Tabs.Panel value="code" py="xs">
-            Code Content
+            <CodeGenerationTab />
           </Tabs.Panel>
         </ScrollArea>
       </Tabs>

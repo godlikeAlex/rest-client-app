@@ -7,7 +7,7 @@ export default function NavBar() {
   return (
     <>
       <Group gap="xl">
-        <Button variant="subtle" component={Link} to={'restClient'} px={5}>
+        <Button variant="subtle" component={Link} to={'rest-client'} px={5}>
           {t('home.restButton')}
         </Button>
         <Button variant="subtle" component={Link} to={'history'} px={5}>

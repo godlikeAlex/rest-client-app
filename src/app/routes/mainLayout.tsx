@@ -1,8 +1,7 @@
-import { useTranslation } from 'react-i18next';
-import type { Route } from './+types/home';
+import type { Route } from './+types/mainLayout';
 import i18next from '@/app/i18next.server';
-import { data } from 'react-router';
-import { Header } from '@/components';
+import { data, Outlet } from 'react-router';
+import { Footer, Header } from '@/components';
 
 export async function loader({ request }: Route.LoaderArgs) {
   const t = await i18next.getFixedT(request);
@@ -20,13 +19,13 @@ export function meta({ loaderData }: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
-  const { t } = useTranslation();
-
+export default function MainLayout() {
+  const user = false;
   return (
     <main>
-      <Header />
-      <h1>{t('home.homeTitle')}</h1>
+      <Header isUserLog={user} />
+      <Outlet />
+      <Footer />
     </main>
   );
 }

@@ -7,7 +7,13 @@ export default function Footer() {
       <Divider />
       <Group justify="space-between" py="md" px="xl">
         <Anchor href="https://rs.school/" target="_blank" size="xl">
-          <Image src={logoRS} width={40} height={40} alt="rs-school" />
+          <Image
+            src={logoRS}
+            width={40}
+            height={40}
+            fit="contain"
+            alt="rs-school"
+          />
         </Anchor>
         <Stack gap="xs">
           <Text size="sm" fw={700} c="dimmed">

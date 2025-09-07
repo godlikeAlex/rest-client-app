@@ -1,4 +1,4 @@
-import type { Route } from './+types/home';
+import type { Route } from './+types/mainLayout';
 import i18next from '@/app/i18next.server';
 import { data, Outlet } from 'react-router';
 import { Footer, Header } from '@/components';
@@ -19,7 +19,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
+export default function MainLayout() {
   const user = false;
   return (
     <main>

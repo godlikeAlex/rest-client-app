@@ -4,7 +4,7 @@ export default {
   buttonSignIn: 'Войти',
   buttonSignOut: 'Выйти',
   greetings: 'Добро пожаловать',
-  back: 'С возвразением',
+  back: 'С возвращением',
   restButton: 'REST Client',
   historyButton: 'История',
   variablesButton: 'Переменные',

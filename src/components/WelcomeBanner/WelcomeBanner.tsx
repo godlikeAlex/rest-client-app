@@ -5,10 +5,11 @@ import { NavBar } from '@/components';
 type Props = {
   isUserLog: boolean;
 };
+
 export default function WelcomeBanner({ isUserLog }: Props) {
   const { t } = useTranslation();
   return (
-    <Center py="xl" mih="760px">
+    <Center py="xl" mih="750px">
       <Stack align="center" gap="md">
         {isUserLog ? (
           <>

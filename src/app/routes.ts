@@ -8,8 +8,8 @@ import {
 export default [
   index('routes/index.tsx'),
   route(':locale', 'routes/locale.tsx', [
-    layout('routes/home.tsx', [
-      index('routes/welcome.tsx'),
+    layout('routes/mainLayout.tsx', [
+      index('routes/homePage.tsx'),
       route('restClient', 'routes/restClient.tsx'),
       route('history', 'routes/history.tsx'),
       route('signIn', 'routes/signIn.tsx'),

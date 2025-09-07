@@ -1,4 +1,4 @@
-# Welcome to Restik!
+# HomePage to Restik!
 
 ### Installation
 

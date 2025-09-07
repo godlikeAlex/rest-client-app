@@ -13,10 +13,16 @@ import { useTranslation } from 'react-i18next';
 import {
   ColorSchemeScript,
   MantineProvider,
+  createTheme,
   mantineHtmlProps,
 } from '@mantine/core';
 
 import type { Route } from './+types/root';
+
+const theme = createTheme({
+  fontFamily: 'Open Sans, sans-serif',
+  primaryColor: 'green',
+});
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { i18n } = useTranslation();
@@ -33,7 +39,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <MantineProvider theme={theme}>{children}</MantineProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

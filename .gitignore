@@ -2,8 +2,12 @@
 /node_modules/
 
 # React Router
-/.react-router/
+/.react-router
 /build/
+.react-router/*
 
 # Netlify
 .netlify
+
+# coverage
+coverage/*

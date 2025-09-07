@@ -10,7 +10,7 @@ export default [
   route(':locale', 'routes/locale.tsx', [
     layout('routes/mainLayout.tsx', [
       index('routes/homePage.tsx'),
-      route('restClient', 'routes/restClient.tsx'),
+      route('rest-client', 'routes/rest-client.tsx'),
       route('history', 'routes/history.tsx'),
       route('signIn', 'routes/signIn.tsx'),
     ]),

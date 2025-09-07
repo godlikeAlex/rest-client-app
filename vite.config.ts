@@ -10,5 +10,5 @@ export default defineConfig(({ isSsrBuild }) => ({
         }
       : undefined,
   },
-  plugins: [reactRouter(), tsconfigPaths()],
+  plugins: [!process.env.VITEST && reactRouter(), tsconfigPaths()],
 }));

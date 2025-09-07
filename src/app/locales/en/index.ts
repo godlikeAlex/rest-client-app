@@ -1,4 +1,6 @@
 import type { Resource } from 'i18next';
 import notFound from './not-found';
 import home from './home';
-export default { notFound, home } satisfies Resource;
+import restClient from './rest-client';
+
+export default { notFound, home, restClient } satisfies Resource;

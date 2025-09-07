@@ -1,4 +1,13 @@
 import { signUp } from '@/services/firebase';
+import {
+  Button,
+  Text,
+  Container,
+  PasswordInput,
+  Space,
+  TextInput,
+  Title,
+} from '@mantine/core';
 import { useState, type FormEvent } from 'react';
 
 export default function SignUp() {
@@ -25,35 +34,57 @@ export default function SignUp() {
   }
 
   return (
-    <div>
+    <Container size="xs">
+      <Title order={3} ta={'center'}>
+        Register account
+      </Title>
+      <Space h="xs" />
       <form onSubmit={registration}>
-        <input
+        <TextInput
+          label="Name"
           type="text"
           value={name}
-          placeholder="Введите имя"
+          placeholder="Please enter your name"
           onChange={(e) => setName(e.target.value)}
         />
-        <input
+        <Space h="xs" />
+        <TextInput
+          label="Email"
           type="text"
           value={email}
-          placeholder="Введите почту"
+          placeholder="Please enter your email"
           onChange={(e) => setEmail(e.target.value)}
         />
-        <input
+        <Space h="xs" />
+        <PasswordInput
+          label="Password"
           type="password"
           value={password}
-          placeholder="Введите пароль"
+          placeholder="Please enter your password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input
+        <Space h="xs" />
+        <PasswordInput
+          label="Confirm password"
           type="password"
           value={confirmPassword}
-          placeholder="Введите пароль"
+          placeholder="Please confirm password"
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <button>Sign Up</button>
-        {error}
+        <Space h="xs" />
+        <Text c="red" size="sm" mt="xs" ta="center">
+          {error}
+        </Text>
+        <Space h="xs" />
+        <Button
+          type="submit"
+          color="rgba(125, 217, 33, 1)"
+          display="block"
+          mx="auto"
+        >
+          Sign Up
+        </Button>
       </form>
-    </div>
+    </Container>
   );
 }

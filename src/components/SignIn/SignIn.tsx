@@ -1,4 +1,12 @@
 import { signIn } from '@/services/firebase';
+import {
+  Button,
+  Container,
+  PasswordInput,
+  Space,
+  TextInput,
+  Title,
+} from '@mantine/core';
 import { useState, type FormEvent } from 'react';
 
 export default function SignIn() {
@@ -19,23 +27,39 @@ export default function SignIn() {
   }
 
   return (
-    <div>
+    <Container size="xs">
+      <Title order={3} ta="center">
+        Authorization
+      </Title>
+      <Space h="xs" />
       <form onSubmit={authorization}>
-        <input
+        <TextInput
+          label="Email"
           type="text"
           value={email}
-          placeholder="Введите почту"
+          placeholder="Please enter your email"
           onChange={(e) => setEmail(e.target.value)}
         />
-        <input
+        <Space h="xs" />
+        <PasswordInput
+          label="Password"
           type="password"
           value={password}
-          placeholder="Введите пароль"
+          placeholder="Please enter your password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button>Sign in</button>
+        <Space h="md" />
+        <Button
+          type="submit"
+          color="rgba(125, 217, 33, 1)"
+          display="block"
+          mx="auto"
+        >
+          Sign in
+        </Button>
+        <Space h="xs" />
         {error}
       </form>
-    </div>
+    </Container>
   );
 }

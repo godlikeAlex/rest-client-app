@@ -1,5 +1,5 @@
 import { signUp } from '@/services/firebase';
-import { digitRegex, letterRegex, specialRegex } from '@/utils/const';
+import { validatePassword, type AuthorizationValues } from '@/utils/validate';
 import {
   Button,
   Text,
@@ -9,15 +9,8 @@ import {
   TextInput,
   Title,
 } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { isEmail, isNotEmpty, useForm } from '@mantine/form';
 import { useState } from 'react';
-
-interface SignUpFormValues {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
 
 export default function SignUp() {
   const [error, setError] = useState('');
@@ -31,34 +24,19 @@ export default function SignUp() {
     },
     validateInputOnChange: true,
     validate: {
-      name: (value: string) =>
-        value.trim().length < 2 ? 'Name must have at least 2 characters' : null,
-      email: (value: string) =>
-        /^\S+@\S+$/.test(value) ? null : 'Invalid email address',
-      password: (value: string) => {
-        if (value.length < 8) {
-          return 'Password must be at least 8 characters long';
-        }
-        if (!letterRegex.test(value)) {
-          return 'Password must contain at least one letter';
-        }
-        if (!digitRegex.test(value)) {
-          return 'Password must contain at least one digit';
-        }
-        if (!specialRegex.test(value)) {
-          return 'Password must contain at least one special character';
-        }
-        return null;
-      },
-      confirmPassword: (value: string, values: SignUpFormValues) =>
+      name: isNotEmpty('Name is required'),
+      email: isEmail('Invalid email address'),
+      password: (value: string) => validatePassword(value),
+      confirmPassword: (value: string, values: AuthorizationValues) =>
         value !== values.password ? 'Passwords do not match' : null,
     },
   });
 
-  async function registration(values: SignUpFormValues) {
+  async function registration(values: AuthorizationValues) {
     setError('');
     try {
-      await signUp(values.email, values.password, values.name);
+      await signUp(values.email, values.password, values.name ?? '');
+      form.reset();
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message);

@@ -2,6 +2,7 @@ import { signIn } from '@/services/firebase';
 import {
   Button,
   Container,
+  Text,
   PasswordInput,
   Space,
   TextInput,
@@ -49,6 +50,9 @@ export default function SignIn() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <Space h="md" />
+        <Text c="red" size="sm" mt="xs">
+          {error}
+        </Text>
         <Button
           type="submit"
           color="rgba(125, 217, 33, 1)"
@@ -57,8 +61,6 @@ export default function SignIn() {
         >
           Sign in
         </Button>
-        <Space h="xs" />
-        {error}
       </form>
     </Container>
   );

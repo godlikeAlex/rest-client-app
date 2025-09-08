@@ -1,4 +1,5 @@
 import { signUp } from '@/services/firebase';
+import { digitRegex, letterRegex, specialRegex } from '@/utils/const';
 import {
   Button,
   Text,
@@ -8,24 +9,56 @@ import {
   TextInput,
   Title,
 } from '@mantine/core';
-import { useState, type FormEvent } from 'react';
+import { useForm } from '@mantine/form';
+import { useState } from 'react';
+
+interface SignUpFormValues {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 export default function SignUp() {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
 
-  async function registration(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  const form = useForm({
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+    validateInputOnChange: true,
+    validate: {
+      name: (value: string) =>
+        value.trim().length < 2 ? 'Name must have at least 2 characters' : null,
+      email: (value: string) =>
+        /^\S+@\S+$/.test(value) ? null : 'Invalid email address',
+      password: (value: string) => {
+        if (value.length < 8) {
+          return 'Password must be at least 8 characters long';
+        }
+        if (!letterRegex.test(value)) {
+          return 'Password must contain at least one letter';
+        }
+        if (!digitRegex.test(value)) {
+          return 'Password must contain at least one digit';
+        }
+        if (!specialRegex.test(value)) {
+          return 'Password must contain at least one special character';
+        }
+        return null;
+      },
+      confirmPassword: (value: string, values: SignUpFormValues) =>
+        value !== values.password ? 'Passwords do not match' : null,
+    },
+  });
+
+  async function registration(values: SignUpFormValues) {
     setError('');
-    if (password !== confirmPassword) {
-      setError('The passwords entered do not match.');
-      return;
-    }
     try {
-      await signUp(email, password, name);
+      await signUp(values.email, values.password, values.name);
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message);
@@ -39,37 +72,33 @@ export default function SignUp() {
         Register account
       </Title>
       <Space h="xs" />
-      <form onSubmit={registration}>
+      <form onSubmit={form.onSubmit(registration)}>
         <TextInput
           label="Name"
           type="text"
-          value={name}
           placeholder="Please enter your name"
-          onChange={(e) => setName(e.target.value)}
+          {...form.getInputProps('name')}
         />
         <Space h="xs" />
         <TextInput
           label="Email"
           type="text"
-          value={email}
           placeholder="Please enter your email"
-          onChange={(e) => setEmail(e.target.value)}
+          {...form.getInputProps('email')}
         />
         <Space h="xs" />
         <PasswordInput
           label="Password"
           type="password"
-          value={password}
           placeholder="Please enter your password"
-          onChange={(e) => setPassword(e.target.value)}
+          {...form.getInputProps('password')}
         />
         <Space h="xs" />
         <PasswordInput
           label="Confirm password"
           type="password"
-          value={confirmPassword}
           placeholder="Please confirm password"
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          {...form.getInputProps('confirmPassword')}
         />
         <Space h="xs" />
         <Text c="red" size="sm" mt="xs" ta="center">

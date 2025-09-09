@@ -9,18 +9,18 @@ export interface AuthorizationValues {
   confirmPassword?: string;
 }
 
-export function validatePassword(value: string) {
+export function validatePassword(value: string, t: (key: string) => string) {
   if (value.length < 8) {
-    return 'Password must be at least 8 characters long';
+    return t('validate.validatePasswordLength');
   }
   if (!letterRegex.test(value)) {
-    return 'Password must contain at least one letter';
+    return t('validate.validatePasswordLetterRegex');
   }
   if (!digitRegex.test(value)) {
-    return 'Password must contain at least one digit';
+    return t('validate.validatePasswordDigitRegex');
   }
   if (!specialRegex.test(value)) {
-    return 'Password must contain at least one special character';
+    return t('validate.validatePasswordSpecialRegex');
   }
   return null;
 }

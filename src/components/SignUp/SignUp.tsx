@@ -9,11 +9,13 @@ import {
   TextInput,
   Title,
 } from '@mantine/core';
-import { isEmail, isNotEmpty, useForm } from '@mantine/form';
+import { isEmail, useForm } from '@mantine/form';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function SignUp() {
   const [error, setError] = useState('');
+  const { t } = useTranslation();
 
   const form = useForm({
     initialValues: {
@@ -24,11 +26,13 @@ export default function SignUp() {
     },
     validateInputOnChange: true,
     validate: {
-      name: isNotEmpty('Name is required'),
-      email: isEmail('Invalid email address'),
-      password: (value: string) => validatePassword(value),
+      name: (value: string) => (value ? null : t('validate.validateName')),
+      email: (value: string) => isEmail(t('validate.validateEmail'))(value),
+      password: (value: string) => validatePassword(value, t),
       confirmPassword: (value: string, values: AuthorizationValues) =>
-        value !== values.password ? 'Passwords do not match' : null,
+        value !== values.password
+          ? t('validate.validateConfirmPassword')
+          : null,
     },
   });
 
@@ -47,35 +51,35 @@ export default function SignUp() {
   return (
     <Container size="xs">
       <Title order={3} ta={'center'}>
-        Register account
+        {t('signUp.signUpTitle')}
       </Title>
       <Space h="xs" />
       <form onSubmit={form.onSubmit(registration)}>
         <TextInput
-          label="Name"
+          label={t('signUp.labels.name')}
           type="text"
-          placeholder="Please enter your name"
+          placeholder={t('signUp.placeholders.name')}
           {...form.getInputProps('name')}
         />
         <Space h="xs" />
         <TextInput
-          label="Email"
+          label={t('signUp.labels.email')}
           type="text"
-          placeholder="Please enter your email"
+          placeholder={t('signUp.placeholders.email')}
           {...form.getInputProps('email')}
         />
         <Space h="xs" />
         <PasswordInput
-          label="Password"
+          label={t('signUp.labels.password')}
           type="password"
-          placeholder="Please enter your password"
+          placeholder={t('signUp.placeholders.password')}
           {...form.getInputProps('password')}
         />
         <Space h="xs" />
         <PasswordInput
-          label="Confirm password"
+          label={t('signUp.labels.confirmPassword')}
           type="password"
-          placeholder="Please confirm password"
+          placeholder={t('signUp.placeholders.confirmPassword')}
           {...form.getInputProps('confirmPassword')}
         />
         <Space h="xs" />
@@ -89,7 +93,7 @@ export default function SignUp() {
           display="block"
           mx="auto"
         >
-          Sign Up
+          {t('signUp.button')}
         </Button>
       </form>
     </Container>

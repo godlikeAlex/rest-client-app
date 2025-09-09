@@ -11,9 +11,11 @@ import {
 } from '@mantine/core';
 import { isEmail, useForm } from '@mantine/form';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function SignIn() {
   const [error, setError] = useState('');
+  const { t } = useTranslation();
 
   const form = useForm({
     initialValues: {
@@ -22,8 +24,8 @@ export default function SignIn() {
     },
     validateInputOnChange: true,
     validate: {
-      email: isEmail('Invalid email address'),
-      password: (value: string) => validatePassword(value),
+      email: (value: string) => isEmail(t('validate.validateEmail'))(value),
+      password: (value: string) => validatePassword(value, t),
     },
   });
 
@@ -34,45 +36,47 @@ export default function SignIn() {
       form.reset();
     } catch (error: unknown) {
       if (error instanceof Error) {
-        setError(`Неверный логин или пароль`);
+        setError(`Incorrect login or password`);
       }
     }
   }
 
   return (
-    <Container size="xs">
-      <Title order={3} ta="center">
-        Authorization
-      </Title>
-      <Space h="xs" />
-      <form onSubmit={form.onSubmit(authorization)}>
-        <TextInput
-          label="Email"
-          type="text"
-          placeholder="Please enter your email"
-          {...form.getInputProps('email')}
-        />
+    <>
+      <Container size="xs">
+        <Title order={3} ta="center">
+          {t('signIn.signInTitle')}
+        </Title>
         <Space h="xs" />
-        <PasswordInput
-          label="Password"
-          type="password"
-          placeholder="Please enter your password"
-          {...form.getInputProps('password')}
-        />
-        <Space h="xs" />
-        <Text c="red" size="sm" mt="xs" ta="center">
-          {error}
-        </Text>
-        <Space h="xs" />
-        <Button
-          type="submit"
-          color="rgba(125, 217, 33, 1)"
-          display="block"
-          mx="auto"
-        >
-          Sign in
-        </Button>
-      </form>
-    </Container>
+        <form onSubmit={form.onSubmit(authorization)}>
+          <TextInput
+            label={t('signIn.labels.email')}
+            type="text"
+            placeholder={t('signIn.placeholders.email')}
+            {...form.getInputProps('email')}
+          />
+          <Space h="xs" />
+          <PasswordInput
+            label={t('signIn.labels.password')}
+            type="password"
+            placeholder={t('signIn.placeholders.password')}
+            {...form.getInputProps('password')}
+          />
+          <Space h="xs" />
+          <Text c="red" size="sm" mt="xs" ta="center">
+            {error}
+          </Text>
+          <Space h="xs" />
+          <Button
+            type="submit"
+            color="rgba(125, 217, 33, 1)"
+            display="block"
+            mx="auto"
+          >
+            {t('signIn.button')}
+          </Button>
+        </form>
+      </Container>
+    </>
   );
 }

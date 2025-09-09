@@ -1,26 +1,10 @@
-import {
-  Box,
-  Button,
-  Container,
-  Divider,
-  Flex,
-  Input,
-  ScrollArea,
-  Select,
-  Tabs,
-} from '@mantine/core';
-import {
-  IconWorld,
-  IconSend,
-  IconList,
-  IconJson,
-  IconCode,
-} from '@tabler/icons-react';
+import { Box, Container, Divider, ScrollArea, Tabs } from '@mantine/core';
+import { IconList, IconJson, IconCode } from '@tabler/icons-react';
 
 import { WaitingResponseSection } from './components/WaitingResponseSection';
 import { HeadersRepeater } from './components/HeadersRepeater';
 
-import { BodyTab } from './components';
+import { BodyTab, CodeGenerationTab, RequestForm } from './components';
 import { useTranslation } from 'react-i18next';
 
 export default function RestClientPage() {
@@ -28,21 +12,7 @@ export default function RestClientPage() {
 
   return (
     <Container mt={25}>
-      <Flex gap={'sm'} w={'100%'}>
-        <Select
-          data={['GET', 'POST', 'PUT', 'DELETE']}
-          defaultValue={'GET'}
-          allowDeselect={false}
-        />
-        <Input
-          placeholder={t('restClient.placeholderUrl')}
-          flex={1}
-          leftSection={<IconWorld />}
-        />
-        <Button color="green" leftSection={<IconSend />}>
-          {t('restClient.sendButton')}
-        </Button>
-      </Flex>
+      <RequestForm />
 
       <Tabs defaultValue="headers" mt="md">
         <Tabs.List>
@@ -57,10 +27,10 @@ export default function RestClientPage() {
             {t('restClient.body')}
           </Tabs.Tab>
           <Tabs.Tab value="code" leftSection={<IconCode size={14} />}>
-            {t('restClient.codeGeneration')}
+            {t('restClient.codeGeneration.tabTitle')}
           </Tabs.Tab>
         </Tabs.List>
-        <ScrollArea h={250}>
+        <ScrollArea h={250} scrollbarSize={5} offsetScrollbars={'y'} pr={5}>
           <Tabs.Panel value="headers" py="xs">
             <HeadersRepeater />
           </Tabs.Panel>
@@ -68,7 +38,7 @@ export default function RestClientPage() {
             <BodyTab />
           </Tabs.Panel>
           <Tabs.Panel value="code" py="xs">
-            Code Content
+            <CodeGenerationTab />
           </Tabs.Panel>
         </ScrollArea>
       </Tabs>

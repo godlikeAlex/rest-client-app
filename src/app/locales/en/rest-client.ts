@@ -18,5 +18,6 @@ export default {
     tabTitle: 'Code Generation',
     errorTitle: 'Generation Error',
     errorDescription: 'Not enough data to generate code.',
+    readOnly: 'Read-Only Mode',
   },
 };

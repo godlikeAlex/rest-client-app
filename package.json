@@ -24,6 +24,7 @@
     "@codemirror/lang-python": "^6.2.1",
     "@mantine/core": "^8.2.8",
     "@mantine/hooks": "^8.2.8",
+    "@monaco-editor/react": "^4.7.0",
     "@netlify/functions": "^3.1.10",
     "@react-router/node": "^7.7.1",
     "@replit/codemirror-lang-csharp": "^6.2.0",

@@ -149,6 +149,7 @@ export default function CodeGenerationTab() {
           language={language ? CODE_HIGHLIGHTS[language.value] : undefined}
           value={generatedCode.toString()}
           readOnly
+          height={180}
         />
       ) : (
         <Alert

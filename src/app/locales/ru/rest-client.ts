@@ -18,5 +18,6 @@ export default {
     tabTitle: 'Генерация кода',
     errorTitle: 'Ошибка генерации',
     errorDescription: 'Недостаточно данных для генерации кода.',
+    readOnly: 'Режим только для чтения',
   },
 } satisfies typeof import('@/app/locales/en/rest-client').default;

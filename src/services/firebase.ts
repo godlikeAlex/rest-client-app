@@ -6,8 +6,7 @@ import {
   signOut,
   updateProfile,
 } from 'firebase/auth';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore } from 'firebase/firestore';
 
 type Email = string;
 type Password = string;
@@ -42,5 +41,6 @@ export function signOutProfile() {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+export const db = getFirestore(app);
 
 export default app;

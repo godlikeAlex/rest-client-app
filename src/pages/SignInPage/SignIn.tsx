@@ -25,7 +25,7 @@ export default function SignIn() {
     validateInputOnChange: true,
     validate: {
       email: (value: string) => isEmail(t('validate.validateEmail'))(value),
-      password: (value: string) => validatePassword(value, t),
+      password: (value: string) => validatePassword(value),
     },
   });
 

@@ -28,7 +28,7 @@ export default function SignUp() {
     validate: {
       name: (value: string) => (value ? null : t('validate.validateName')),
       email: (value: string) => isEmail(t('validate.validateEmail'))(value),
-      password: (value: string) => validatePassword(value, t),
+      password: (value: string) => validatePassword(value),
       confirmPassword: (value: string, values: AuthorizationValues) =>
         value !== values.password
           ? t('validate.validateConfirmPassword')

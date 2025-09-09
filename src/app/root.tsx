@@ -17,6 +17,7 @@ import {
 } from '@mantine/core';
 
 import type { Route } from './+types/root';
+import { AuthProvider } from '@/pages/SignInPage/context/AuthContext';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { i18n } = useTranslation();
@@ -31,7 +32,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <MantineProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </MantineProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

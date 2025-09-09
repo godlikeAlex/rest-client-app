@@ -1,3 +1,5 @@
+import { t } from 'i18next';
+
 const letterRegex = /\p{L}/u;
 const digitRegex = /\p{N}/u;
 const specialRegex = /[^\p{L}\p{N}]/u;
@@ -9,7 +11,7 @@ export interface AuthorizationValues {
   confirmPassword?: string;
 }
 
-export function validatePassword(value: string, t: (key: string) => string) {
+export function validatePassword(value: string) {
   if (value.length < 8) {
     return t('validate.validatePasswordLength');
   }

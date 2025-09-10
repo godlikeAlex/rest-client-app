@@ -8,8 +8,8 @@ import {
 } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-type signUpParams = { email: string; password: string; name: string };
-type signInParams = Omit<signUpParams, 'name'>;
+type SignUpParams = { email: string; password: string; name: string };
+type SignInParams = Omit<SignUpParams, 'name'>;
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -20,13 +20,13 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-export async function signIn({ email, password }: signInParams) {
+export async function signIn({ email, password }: SignInParams) {
   const user = await signInWithEmailAndPassword(auth, email, password);
   console.log('Вход выполнен');
   return user;
 }
 
-export async function signUp({ email, password, name }: signUpParams) {
+export async function signUp({ email, password, name }: SignUpParams) {
   const user = await createUserWithEmailAndPassword(auth, email, password);
   const userInfo = user.user;
   updateProfile(userInfo, { displayName: name });

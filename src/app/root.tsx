@@ -13,11 +13,17 @@ import { useTranslation } from 'react-i18next';
 import {
   ColorSchemeScript,
   MantineProvider,
+  createTheme,
   mantineHtmlProps,
 } from '@mantine/core';
 
 import type { Route } from './+types/root';
 import { AuthProvider } from '@/context/AuthContext';
+
+const theme = createTheme({
+  fontFamily: 'Open Sans, sans-serif',
+  primaryColor: 'green',
+});
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { i18n } = useTranslation();
@@ -25,6 +31,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang={i18n.language} {...mantineHtmlProps}>
       <head>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>Rest Client</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
@@ -32,7 +40,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <MantineProvider>
+        <MantineProvider theme={theme}>
           <AuthProvider>{children}</AuthProvider>
         </MantineProvider>
         <ScrollRestoration />

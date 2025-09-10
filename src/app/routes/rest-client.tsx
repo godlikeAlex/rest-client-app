@@ -1,14 +1,15 @@
-import { useTranslation } from 'react-i18next';
-import type { Route } from './+types/home';
+import { RestClientPage } from '@/pages';
+import RestContextProvider from '@/pages/RestClientPage/context/RestContext';
 import i18next from '@/app/i18next.server';
+
+import type { Route } from './+types/rest-client';
 import { data } from 'react-router';
-import { Header } from '@/components';
 
 export async function loader({ request }: Route.LoaderArgs) {
   const t = await i18next.getFixedT(request);
 
-  const title = t('home.seo.title');
-  const description = t('home.seo.description');
+  const title = t('restClient.seo.title');
+  const description = t('restClient.seo.description');
 
   return data({ title, description });
 }
@@ -20,13 +21,10 @@ export function meta({ loaderData }: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
-  const { t } = useTranslation();
-
+export default function RestClient() {
   return (
-    <main>
-      <Header />
-      <h1>{t('home.homeTitle')}</h1>
-    </main>
+    <RestContextProvider>
+      <RestClientPage />
+    </RestContextProvider>
   );
 }

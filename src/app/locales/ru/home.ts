@@ -1,5 +1,13 @@
 export default {
   homeTitle: 'Главная страница',
+  buttonSignUp: 'Зарегистрироваться',
+  buttonSignIn: 'Войти',
+  buttonSignOut: 'Выйти',
+  greetings: 'Добро пожаловать',
+  back: 'С возвращением',
+  restButton: 'REST Client',
+  historyButton: 'История',
+  variablesButton: 'Переменные',
   seo: {
     title: 'Главная страница',
     description:

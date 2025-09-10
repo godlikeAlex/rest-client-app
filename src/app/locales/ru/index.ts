@@ -4,5 +4,6 @@ import home from './home';
 import signIn from './signIn';
 import signUp from './signUp';
 import validate from './validate';
+import restClient from './rest-client';
 
-export default { notFound, home, signIn, signUp, validate } satisfies Resource;
+export default { notFound, home, restClient, signIn, signUp, validate } satisfies Resource;

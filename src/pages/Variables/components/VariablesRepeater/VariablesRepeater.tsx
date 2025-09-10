@@ -23,8 +23,8 @@ export default function VariablesRepeater() {
         <Table.Thead>
           <Table.Tr>
             <Table.Th w={50} />
-            <Table.Th>{t('restClient.headersRepeater.key')}</Table.Th>
-            <Table.Th>{t('restClient.headersRepeater.value')}</Table.Th>
+            <Table.Th>{t('variables.variableRepeater.key')}</Table.Th>
+            <Table.Th>{t('variables.variableRepeater.value')}</Table.Th>
             <Table.Th w={50} />
           </Table.Tr>
         </Table.Thead>
@@ -34,7 +34,7 @@ export default function VariablesRepeater() {
 
       <Center>
         <Button mt={'xs'} variant="light" onClick={() => addVariable()}>
-          {t('restClient.headersRepeater.addHeader')}
+          {t('variables.variableRepeater.addVariable')}
         </Button>
       </Center>
     </>

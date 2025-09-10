@@ -26,3 +26,8 @@ export function validatePassword(value: string) {
   }
   return null;
 }
+
+export function isSamePasswords(value: string, values: AuthorizationValues) {
+  if (value !== values.password) t('validate.validateConfirmPassword');
+  return null;
+}

@@ -1,5 +1,9 @@
 import { signUp } from '@/services/firebase';
-import { validatePassword, type AuthorizationValues } from '@/utils/validate';
+import {
+  isSamePasswords,
+  validatePassword,
+  type AuthorizationValues,
+} from '@/utils/validate';
 import {
   Button,
   Text,
@@ -30,16 +34,18 @@ export default function SignUp() {
       email: (value: string) => isEmail(t('validate.validateEmail'))(value),
       password: (value: string) => validatePassword(value),
       confirmPassword: (value: string, values: AuthorizationValues) =>
-        value !== values.password
-          ? t('validate.validateConfirmPassword')
-          : null,
+        isSamePasswords(value, values),
     },
   });
 
   async function registration(values: AuthorizationValues) {
     setError('');
     try {
-      await signUp(values.email, values.password, values.name ?? '');
+      await signUp({
+        email: values.email,
+        password: values.password,
+        name: values.name || '',
+      });
       form.reset();
     } catch (error: unknown) {
       if (error instanceof Error) {

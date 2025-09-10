@@ -32,7 +32,7 @@ export default function SignIn() {
   async function authorization(values: AuthorizationValues) {
     setError('');
     try {
-      await signIn(values.email, values.password);
+      await signIn({ email: values.email, password: values.password });
       form.reset();
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -42,41 +42,39 @@ export default function SignIn() {
   }
 
   return (
-    <>
-      <Container size="xs">
-        <Title order={3} ta="center">
-          {t('signIn.signInTitle')}
-        </Title>
+    <Container size="xs">
+      <Title order={3} ta="center">
+        {t('signIn.signInTitle')}
+      </Title>
+      <Space h="xs" />
+      <form onSubmit={form.onSubmit(authorization)}>
+        <TextInput
+          label={t('signIn.labels.email')}
+          type="text"
+          placeholder={t('signIn.placeholders.email')}
+          {...form.getInputProps('email')}
+        />
         <Space h="xs" />
-        <form onSubmit={form.onSubmit(authorization)}>
-          <TextInput
-            label={t('signIn.labels.email')}
-            type="text"
-            placeholder={t('signIn.placeholders.email')}
-            {...form.getInputProps('email')}
-          />
-          <Space h="xs" />
-          <PasswordInput
-            label={t('signIn.labels.password')}
-            type="password"
-            placeholder={t('signIn.placeholders.password')}
-            {...form.getInputProps('password')}
-          />
-          <Space h="xs" />
-          <Text c="red" size="sm" mt="xs" ta="center">
-            {error}
-          </Text>
-          <Space h="xs" />
-          <Button
-            type="submit"
-            color="rgba(125, 217, 33, 1)"
-            display="block"
-            mx="auto"
-          >
-            {t('signIn.button')}
-          </Button>
-        </form>
-      </Container>
-    </>
+        <PasswordInput
+          label={t('signIn.labels.password')}
+          type="password"
+          placeholder={t('signIn.placeholders.password')}
+          {...form.getInputProps('password')}
+        />
+        <Space h="xs" />
+        <Text c="red" size="sm" mt="xs" ta="center">
+          {error}
+        </Text>
+        <Space h="xs" />
+        <Button
+          type="submit"
+          color="rgba(125, 217, 33, 1)"
+          display="block"
+          mx="auto"
+        >
+          {t('signIn.button')}
+        </Button>
+      </form>
+    </Container>
   );
 }

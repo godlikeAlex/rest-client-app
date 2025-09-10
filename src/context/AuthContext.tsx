@@ -25,12 +25,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const listener = onAuthStateChanged(auth, (user) => {
+    const unscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setLoading(false);
     });
 
-    return () => listener();
+    return () => unscribe();
   }, []);
 
   return (

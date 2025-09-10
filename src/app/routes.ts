@@ -13,6 +13,7 @@ export default [
       route('rest-client', 'routes/rest-client.tsx'),
       route('history', 'routes/history.tsx'),
       route('signIn', 'routes/signIn.tsx'),
+      route('variables', 'routes/variables.tsx'),
     ]),
   ]),
 ] satisfies RouteConfig;

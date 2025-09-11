@@ -19,4 +19,5 @@ export default {
     errorTitle: 'Ошибка генерации',
     errorDescription: 'Недостаточно данных для генерации кода.',
   },
+  fetchingResponseMessage: 'Обрабатываем ваш запрос...',
 } satisfies typeof import('@/app/locales/en/rest-client').default;

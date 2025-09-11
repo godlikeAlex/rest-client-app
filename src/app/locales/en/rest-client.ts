@@ -19,4 +19,5 @@ export default {
     errorTitle: 'Generation Error',
     errorDescription: 'Not enough data to generate code.',
   },
+  fetchingResponseMessage: 'We are processing your request',
 };

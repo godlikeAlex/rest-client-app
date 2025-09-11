@@ -8,11 +8,15 @@ export default {
   sendButton: 'Send',
   headers: 'Headers',
   body: 'Body',
-  codeGeneration: 'Code Generation',
   headersRepeater: {
     key: 'Key',
     value: 'Value',
     addHeader: 'Add Header',
   },
   idleResponseMessage: 'Submit URL to get a response',
+  codeGeneration: {
+    tabTitle: 'Code Generation',
+    errorTitle: 'Generation Error',
+    errorDescription: 'Not enough data to generate code.',
+  },
 };

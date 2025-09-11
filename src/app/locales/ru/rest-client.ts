@@ -8,11 +8,15 @@ export default {
   sendButton: 'Отправить',
   headers: 'Заголовки',
   body: 'Тело запроса',
-  codeGeneration: 'Генерация кода',
   headersRepeater: {
     key: 'Ключ',
     value: 'Значение',
     addHeader: 'Добавить заголовок',
   },
   idleResponseMessage: 'Отправьте URL, чтобы получить ответ',
+  codeGeneration: {
+    tabTitle: 'Генерация кода',
+    errorTitle: 'Ошибка генерации',
+    errorDescription: 'Недостаточно данных для генерации кода.',
+  },
 } satisfies typeof import('@/app/locales/en/rest-client').default;

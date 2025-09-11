@@ -32,9 +32,12 @@ export default function RestContextProvider({
   initialState = defaultState,
 }: {
   children: ReactNode;
-  initialState?: RestClientState;
+  initialState?: Partial<RestClientState>;
 }) {
-  const [state, setState] = useState<RestClientState>(initialState);
+  const [state, setState] = useState<RestClientState>({
+    ...defaultState,
+    ...initialState,
+  });
 
   return (
     <RestContext.Provider value={{ state, setState }}>

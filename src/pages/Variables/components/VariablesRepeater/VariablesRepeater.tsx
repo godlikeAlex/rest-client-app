@@ -13,7 +13,7 @@ export default function VariablesRepeater() {
       key={index}
       inputs={{ key, value, enabled }}
       onChange={() => updateVariable()}
-      onDelete={() => deleteVariable()}
+      onDelete={() => deleteVariable(index)}
     />
   ));
 

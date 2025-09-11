@@ -12,6 +12,12 @@ interface DecodeRequestPayload
   headers: URLSearchParams;
 }
 
+interface DecodeResponse {
+  url: string;
+  body?: string;
+  headers: HeaderClient[];
+}
+
 export default class UrlTransformerService {
   static encode({ headers, method, body, url }: RequestPayload): string {
     const searchParamsHeaders = new URLSearchParams();
@@ -31,11 +37,7 @@ export default class UrlTransformerService {
     return `${generatedUrl}?${searchParamsHeaders.toString()}`;
   }
 
-  static decode({
-    url,
-    body,
-    headers,
-  }: DecodeRequestPayload): Partial<RequestPayload> {
+  static decode({ url, body, headers }: DecodeRequestPayload): DecodeResponse {
     const decodedUrl = url && atob(url);
     const decodedBody = body && atob(body);
     const clientHeaders: HeaderClient[] = [];
@@ -45,7 +47,7 @@ export default class UrlTransformerService {
     }
 
     return {
-      url: decodedUrl,
+      url: decodedUrl ?? '',
       body: decodedBody,
       headers: clientHeaders,
     };

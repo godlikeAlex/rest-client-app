@@ -1,4 +1,4 @@
-import { signIn } from '@/services/firebase';
+import { signIn } from '@/services/firebase.client';
 import { validatePassword, type AuthorizationValues } from '@/utils/validate';
 import {
   Button,

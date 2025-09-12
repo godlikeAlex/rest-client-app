@@ -1,4 +1,4 @@
-import { signUp } from '@/services/firebase';
+import { signUp } from '@/services/firebase.client';
 import {
   isSamePasswords,
   validatePassword,

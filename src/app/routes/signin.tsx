@@ -1,5 +1,3 @@
-import { SignIn } from '@/pages';
-
-export default function SignInPage() {
-  return <SignIn />;
+export default function SignIn() {
+  return <p>There will be login here</p>;
 }

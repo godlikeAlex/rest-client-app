@@ -1,5 +1,5 @@
 import type { Config, Context } from '@netlify/functions';
-import { createRequestHandler, unstable_createContext } from 'react-router';
+import { createRequestHandler } from 'react-router';
 
 declare module 'react-router' {
   interface AppLoadContext {

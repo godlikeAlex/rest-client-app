@@ -94,9 +94,15 @@ export default class RequestService {
         contentType: contentType.includes('application/json') ? 'json' : 'html',
       };
     } catch (err: unknown) {
-      console.log(err);
-      const errorMessage = err instanceof Error ? err.message : 'Error';
+      let errorMessage = 'Error';
 
+      if (err instanceof Error) {
+        errorMessage = err.message;
+
+        if (err.cause !== undefined) {
+          errorMessage = String(err.cause);
+        }
+      }
       return {
         error: true,
         message: errorMessage,

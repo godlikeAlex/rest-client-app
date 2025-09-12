@@ -21,7 +21,10 @@ interface DecodeResponse {
 export default class UrlTransformerService {
   static encode({ headers, method, body, url }: RequestPayload): string {
     const searchParamsHeaders = new URLSearchParams();
-    const enabledHeaders = headers.filter((header) => header.enabled);
+    const enabledHeaders = headers.filter(
+      (header) =>
+        header.enabled && header.key.length > 0 && header.value.length > 0
+    );
     const encodedBody = btoa(body);
     const encodedUrl = btoa(url);
 

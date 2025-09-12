@@ -1,17 +1,25 @@
+import { useTranslation } from 'react-i18next';
 import { Box, Container, Divider, ScrollArea, Tabs } from '@mantine/core';
 import { IconList, IconJson, IconCode } from '@tabler/icons-react';
 
 import { WaitingResponseSection } from './components/WaitingResponseSection';
 import { HeadersRepeater } from './components/HeadersRepeater';
+import useFetcherRest from '@/pages/RestClientPage/hooks/useFetcherRest';
 
-import { BodyTab, CodeGenerationTab, RequestForm } from './components';
-import { useTranslation } from 'react-i18next';
+import {
+  BodyTab,
+  CodeGenerationTab,
+  RequestForm,
+  Loader,
+  ResponseSection,
+} from './components';
 
 export default function RestClientPage() {
   const { t } = useTranslation();
+  const fetcher = useFetcherRest();
 
   return (
-    <Container mt={25}>
+    <Container py={25} pos={'relative'}>
       <RequestForm />
 
       <Tabs defaultValue="headers" mt="md">
@@ -43,10 +51,16 @@ export default function RestClientPage() {
         </ScrollArea>
       </Tabs>
 
-      <Box component="section" py="xs">
+      <Box component="section" py="xs" pos="relative">
         <Divider />
 
-        <WaitingResponseSection />
+        <Loader visible={fetcher.state === 'submitting'} />
+
+        {fetcher.data ? (
+          <ResponseSection requestResult={fetcher.data} />
+        ) : (
+          <WaitingResponseSection />
+        )}
       </Box>
     </Container>
   );

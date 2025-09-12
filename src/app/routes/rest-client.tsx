@@ -9,13 +9,18 @@ import { data } from 'react-router';
 import { RequestService, UrlTransformerService } from '@/services';
 
 export async function action({ request, params }: Route.ActionArgs) {
-  const { url, body } = UrlTransformerService.decode({
+  const { url, body, headers } = UrlTransformerService.decode({
     url: params.url ?? '',
     body: params.body,
     headers: new URL(request.url).searchParams,
   });
 
-  const response = await RequestService.sendRequest(url, params.method, body);
+  const response = await RequestService.sendRequest({
+    url,
+    method: params.method ?? 'GET',
+    body,
+    clientHeaders: headers,
+  });
 
   return response;
 }

@@ -1,11 +1,15 @@
 import prettier from 'prettier/standalone';
 import parserHtml from 'prettier/parser-html';
+import type { HeaderClient } from '@/types/headers';
+
+type ResponseHeader = { key: string; value: string };
 
 interface RequestSuccess {
   error: false;
   status: number;
   time: number;
   data: string;
+  headers: ResponseHeader[];
   requestSize: number;
   responseSize: number;
   requestTimestamp: string;
@@ -18,18 +22,35 @@ interface RequestError {
   requestTimestamp: string;
 }
 
+interface SendRequestParams {
+  url: string;
+  method: string;
+  body?: string;
+  clientHeaders: HeaderClient[];
+}
+
 export type RequestResult = RequestSuccess | RequestError;
 
 export default class RequestService {
-  static async sendRequest(
-    url: string,
-    method: string = 'GET',
-    body?: string
-  ): Promise<RequestResult> {
-    const options = {
+  static async sendRequest({
+    method = 'GET',
+    body,
+    url,
+    clientHeaders,
+  }: SendRequestParams): Promise<RequestResult> {
+    const headers = clientHeaders
+      .filter((header) => header.enabled)
+      .reduce<Record<string, string>>((headers, { key, value }) => {
+        headers[key] = value;
+
+        return headers;
+      }, {});
+
+    const options: RequestInit = {
       method,
       headers: {
         'Content-Type': 'application/json',
+        ...headers,
       },
       body: body ? JSON.stringify(body) : undefined,
     };
@@ -38,7 +59,7 @@ export default class RequestService {
     const requestTimestamp = new Date().toISOString();
 
     try {
-      const response = await fetch(url, { ...options });
+      const response = await fetch(url, options);
       const end = Date.now();
       const timeTaken = end - start;
 
@@ -55,6 +76,12 @@ export default class RequestService {
         data = await response.text();
       }
 
+      const responseHeadersArray: ResponseHeader[] = [];
+
+      response.headers.forEach((value, key) => {
+        responseHeadersArray.push({ key, value });
+      });
+
       return {
         error: false,
         status: response.status,
@@ -63,6 +90,7 @@ export default class RequestService {
         responseSize,
         requestTimestamp,
         data: (await this.beautifyData(contentType, data)) ?? '',
+        headers: responseHeadersArray,
         contentType: contentType.includes('application/json') ? 'json' : 'html',
       };
     } catch (err: unknown) {

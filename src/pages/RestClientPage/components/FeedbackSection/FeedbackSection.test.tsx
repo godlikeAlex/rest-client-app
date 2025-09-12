@@ -2,7 +2,7 @@ import { renderWithProviders, screen } from '@/tests/utils';
 import { describe, expect, it } from 'vitest';
 import FeedbackSection from './FeedbackSection';
 
-describe('component WaitingResponseSection', () => {
+describe('component feedback section', () => {
   it('should render with image and title', () => {
     expect.hasAssertions();
 

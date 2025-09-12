@@ -42,7 +42,7 @@ export default function Header({ isUserLog }: Props) {
                     variant="subtle"
                     px={1}
                     component={Link}
-                    to={'signIn'}
+                    to={'signUp'}
                   >
                     {t('home.buttonSignUp')}
                   </Button>

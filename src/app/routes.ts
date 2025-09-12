@@ -14,6 +14,7 @@ export default [
       route('history', 'routes/history.tsx'),
       route('signin', 'routes/signin.tsx'),
       route('signup', 'routes/signup.tsx'),
+      route('logout', 'routes/logout.ts'),
     ]),
   ]),
 ] satisfies RouteConfig;

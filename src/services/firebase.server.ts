@@ -11,14 +11,6 @@ let app: App;
 let auth: Auth;
 
 if (getApps().length === 0) {
-  console.log(
-    'PRIVATE_KEY START:',
-    process.env.FIREBASE_PRIVATE_KEY?.slice(0, 40)
-  );
-  console.log(
-    'Contains newline?',
-    process.env.FIREBASE_PRIVATE_KEY?.includes('\n')
-  );
   app = initializeApp({
     credential: cert({
       projectId: process.env.FIREBASE_PROJECT_ID,

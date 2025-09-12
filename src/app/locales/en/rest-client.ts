@@ -13,10 +13,21 @@ export default {
     value: 'Value',
     addHeader: 'Add Header',
   },
-  idleResponseMessage: 'Submit URL to get a response',
+  idleResponseSection: {
+    title: 'Ready for a request!',
+    description:
+      'Enter a URL and click "Send" to make a request and see the result.',
+  },
+  errorResponseMessage: 'Oops, something went wrong...',
   codeGeneration: {
     tabTitle: 'Code Generation',
     errorTitle: 'Generation Error',
     errorDescription: 'Not enough data to generate code.',
+  },
+  fetchingResponseMessage: 'We are processing your request',
+  responseSection: {
+    title: 'Response',
+    statusCode: 'Status Code',
+    time: 'Time',
   },
 };

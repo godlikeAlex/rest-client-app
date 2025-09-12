@@ -12,7 +12,8 @@ export default [
       index('routes/homePage.tsx'),
       route('rest-client/:method?/:url?/:body?', 'routes/rest-client.tsx'),
       route('history', 'routes/history.tsx'),
-      route('signIn', 'routes/signIn.tsx'),
+      route('signin', 'routes/signin.tsx'),
+      route('signup', 'routes/signup.tsx'),
     ]),
   ]),
 ] satisfies RouteConfig;

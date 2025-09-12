@@ -9,5 +9,8 @@
 # Netlify
 .netlify
 
+.env
+
 # coverage
 coverage/*
+

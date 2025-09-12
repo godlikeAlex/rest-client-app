@@ -16,10 +16,12 @@ import {
 import { isEmail, useForm } from '@mantine/form';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useFetcher } from 'react-router';
 
 export default function SignUp() {
   const [error, setError] = useState('');
   const { t } = useTranslation();
+  const fetcher = useFetcher();
 
   const form = useForm({
     initialValues: {
@@ -41,11 +43,15 @@ export default function SignUp() {
   async function registration(values: AuthorizationValues) {
     setError('');
     try {
-      await signUp({
+      const user = await signUp({
         email: values.email,
         password: values.password,
         name: values.name || '',
       });
+      const idToken = await user.user.getIdToken();
+      const formData = new FormData();
+      formData.append('idToken', idToken);
+      fetcher.submit(formData, { method: 'post' });
       form.reset();
     } catch (error: unknown) {
       if (error instanceof Error) {

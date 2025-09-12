@@ -12,8 +12,10 @@ import {
 import { isEmail, useForm } from '@mantine/form';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useFetcher } from 'react-router';
 
 export default function SignIn() {
+  const fetcher = useFetcher();
   const [error, setError] = useState('');
   const { t } = useTranslation();
 
@@ -32,8 +34,15 @@ export default function SignIn() {
   async function authorization(values: AuthorizationValues) {
     setError('');
     try {
-      await signIn({ email: values.email, password: values.password });
+      const user = await signIn({
+        email: values.email,
+        password: values.password,
+      });
+      const idToken = await user.user.getIdToken();
       form.reset();
+      const formData = new FormData();
+      formData.append('idToken', idToken);
+      fetcher.submit(formData, { method: 'post' });
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(`Incorrect login or password`);

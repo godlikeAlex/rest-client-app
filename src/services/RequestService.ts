@@ -50,9 +50,10 @@ export default class RequestService {
       method,
       headers: {
         'Content-Type': 'application/json',
+        Accept: 'application/json',
         ...headers,
       },
-      body: body ? JSON.stringify(body) : undefined,
+      body: body ? JSON.stringify(JSON.parse(body)) : undefined,
     };
 
     const start = Date.now();

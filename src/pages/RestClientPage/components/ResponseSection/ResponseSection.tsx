@@ -4,16 +4,26 @@ import { CodeEditor, CopyButton, HttpStatusBadge } from '@/components';
 import type { RequestResult } from '@/services/RequestService';
 import { useState } from 'react';
 import HeadersViewTable from './HeadersViewTable';
+import { FeedbackSection } from '../FeedbackSection';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   requestResult: RequestResult;
 }
 
 export default function ResponseSection({ requestResult }: Props) {
+  const { t } = useTranslation();
+
   const [selectedSegment, setSelectedSegment] = useState<string>('body');
 
   if (requestResult.error) {
-    return <h1>ERROR MESSAGE</h1>;
+    return (
+      <FeedbackSection
+        status="error"
+        title={t('restClient.errorResponseMessage')}
+        description={requestResult.message}
+      />
+    );
   }
 
   return (

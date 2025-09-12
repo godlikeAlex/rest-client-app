@@ -13,7 +13,12 @@ export default {
     value: 'Значение',
     addHeader: 'Добавить заголовок',
   },
-  idleResponseMessage: 'Отправьте URL, чтобы получить ответ',
+  idleResponseSection: {
+    title: 'Готов к запросу!',
+    description:
+      'Введите URL и нажмите "Отправить", чтобы отправить запрос и увидеть результат.',
+  },
+  errorResponseMessage: 'Упс, что-то пошло не так...',
   codeGeneration: {
     tabTitle: 'Генерация кода',
     errorTitle: 'Ошибка генерации',

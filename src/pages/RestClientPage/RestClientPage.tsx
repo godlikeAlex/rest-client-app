@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import { Box, Container, Divider, ScrollArea, Tabs } from '@mantine/core';
 import { IconList, IconJson, IconCode } from '@tabler/icons-react';
 
-import { WaitingResponseSection } from './components/WaitingResponseSection';
 import { HeadersRepeater } from './components/HeadersRepeater';
 import useFetcherRest from '@/pages/RestClientPage/hooks/useFetcherRest';
 
@@ -12,6 +11,7 @@ import {
   RequestForm,
   Loader,
   ResponseSection,
+  FeedbackSection,
 } from './components';
 
 export default function RestClientPage() {
@@ -59,7 +59,11 @@ export default function RestClientPage() {
         {fetcher.data ? (
           <ResponseSection requestResult={fetcher.data} />
         ) : (
-          <WaitingResponseSection />
+          <FeedbackSection
+            status="idle"
+            title={t('restClient.idleResponseSection.title')}
+            description={t('restClient.idleResponseSection.description')}
+          />
         )}
       </Box>
     </Container>

@@ -1,38 +1,30 @@
-// import { useEffect, useState } from 'react';
-// import type {Variable} from '@/types/variables'
-//
-// interface VariablesDataType {
-//   [userId: string]: Variable[];
-// }
-//
-// const STORAGE_KEY = 'usersVariables';
-//
-// export function useStore() {
-//   const [variables, setVariables] = useState<VariablesDataType>({});
-//
-//   useEffect(() => {
-//     const stored = localStorage.getItem(STORAGE_KEY);
-//     if (stored) {
-//       try {
-//         setVariables(JSON.parse(stored));
-//       } catch (e) {
-//         console.error('Failed to parse variables from localStorage', e);
-//       }
-//     }
-//   }, []);
-//
-//   useEffect(() => {
-//     localStorage.setItem(STORAGE_KEY, JSON.stringify(variables));
-//   }, [variables]);
-//
-//   function setVariable(userId: string, key: string, value: string, enabled: boolean) {
-//
-//   }
-//   function getUserVariables(userId: string): Variable[] {
-//     return variables[userId] || [];
-//   }
-//   return {
-//     getUserVariables,
-//     setVariable,
-//   };
-// }
+import type { Variable } from '@/types/variables';
+
+interface VariablesDataType {
+  [userId: string]: Variable[];
+}
+
+const STORAGE_KEY = 'usersVariables';
+
+export function setUsersVariables(userId: string, variables: Variable[]) {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    const parsed: VariablesDataType = raw ? JSON.parse(raw) : {};
+    console.log(parsed);
+    parsed[userId] = variables;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+  } catch (e) {
+    console.error('Wrong with saving to localStorage:', e);
+  }
+}
+
+export function getUsersVariables(userId: string): Variable[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    const parsed: VariablesDataType = JSON.parse(raw);
+    return parsed[userId] || [];
+  } catch {
+    return [];
+  }
+}

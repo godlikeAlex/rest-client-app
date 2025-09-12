@@ -4,15 +4,17 @@ import RepeaterRow from '@/pages/RestClientPage/components/HeadersRepeater/Repea
 import useVariables from '@/pages/Variables/hooks/useVariables';
 
 export default function VariablesRepeater() {
+  const userId = 'user2';
   const { t } = useTranslation();
+
   const { variables, addVariable, updateVariable, deleteVariable } =
-    useVariables();
+    useVariables(userId);
 
   const variableItem = variables.map(({ key, value, enabled }, index) => (
     <RepeaterRow
       key={index}
       inputs={{ key, value, enabled }}
-      onChange={() => updateVariable()}
+      onChange={(key, value) => updateVariable(index, key, value)}
       onDelete={() => deleteVariable(index)}
     />
   ));

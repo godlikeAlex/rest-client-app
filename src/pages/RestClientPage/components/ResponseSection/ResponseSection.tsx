@@ -29,19 +29,19 @@ export default function ResponseSection({ requestResult }: Props) {
   return (
     <Box py="md">
       <Flex justify="space-between" align="center" gap={15} mb="xs">
-        <Title order={2}>Response</Title>
+        <Title order={2}>{t('restClient.responseSection.title')}</Title>
 
         <Flex gap={15} align="center">
           <Flex gap={5} align={'center'}>
             <Text size="sm" c="dimmed">
-              Status Code:
+              {t('restClient.responseSection.statusCode')}:
             </Text>
             <HttpStatusBadge status={requestResult.status} />
           </Flex>
 
           <Flex gap={5} align={'center'}>
             <Text size="sm" c="dimmed">
-              Time:
+              {t('restClient.responseSection.time')}:
             </Text>
             <Text size="sm" c={'green'}>
               {requestResult.time}ms
@@ -57,11 +57,11 @@ export default function ResponseSection({ requestResult }: Props) {
           data={[
             {
               value: 'body',
-              label: 'Body',
+              label: t('restClient.body'),
             },
             {
               value: 'headers',
-              label: 'Headers',
+              label: t('restClient.headers'),
             },
           ]}
         />

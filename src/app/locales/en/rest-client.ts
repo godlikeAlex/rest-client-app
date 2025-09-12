@@ -25,4 +25,9 @@ export default {
     errorDescription: 'Not enough data to generate code.',
   },
   fetchingResponseMessage: 'We are processing your request',
+  responseSection: {
+    title: 'Response',
+    statusCode: 'Status Code',
+    time: 'Time',
+  },
 };

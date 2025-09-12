@@ -25,4 +25,9 @@ export default {
     errorDescription: 'Недостаточно данных для генерации кода.',
   },
   fetchingResponseMessage: 'Обрабатываем ваш запрос...',
+  responseSection: {
+    title: 'Ответ',
+    statusCode: 'Статус-код',
+    time: 'Время выполнения',
+  },
 } satisfies typeof import('@/app/locales/en/rest-client').default;

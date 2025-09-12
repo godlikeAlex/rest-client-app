@@ -6,7 +6,19 @@ import i18next from '@/app/i18next.server';
 
 import type { Route } from './+types/rest-client';
 import { data } from 'react-router';
-import { UrlTransformerService } from '@/services';
+import { RequestService, UrlTransformerService } from '@/services';
+
+export async function action({ request, params }: Route.ActionArgs) {
+  const { url, body } = UrlTransformerService.decode({
+    url: params.url ?? '',
+    body: params.body,
+    headers: new URL(request.url).searchParams,
+  });
+
+  const response = await RequestService.sendRequest(url, params.method, body);
+
+  return response;
+}
 
 export async function loader({ request, params }: Route.LoaderArgs) {
   const t = await i18next.getFixedT(request);
@@ -21,7 +33,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
   });
 
   const initialData: Partial<RestClientState> = {
-    method: params.method,
+    method: params.method ?? 'GET',
     body: decoded.body,
     url: decoded.url,
     headers: decoded.headers,

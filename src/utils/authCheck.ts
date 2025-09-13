@@ -11,7 +11,7 @@ export async function requireAuth(
   const pathname = url.pathname;
   const language = pathname.split('/')[1] || 'en';
 
-  if (pathname.endsWith('signin') || pathname.endsWith('signup')) {
+  if (pathname.endsWith('sign-in') || pathname.endsWith('sign-up')) {
     return null;
   }
 

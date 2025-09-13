@@ -17,7 +17,6 @@ export default function WelcomeBanner() {
               {t('home.back')}, {userName}!
             </Text>
             <NavBar />
-            тр
           </>
         ) : (
           <>
@@ -25,10 +24,10 @@ export default function WelcomeBanner() {
               {t('home.greetings')}!
             </Text>
             <Group>
-              <Button variant="default" size="md" component={Link} to="signin">
+              <Button variant="default" size="md" component={Link} to="sign-in">
                 {t('home.buttonSignIn')}
               </Button>
-              <Button variant="filled" size="md" component={Link} to="signup">
+              <Button variant="filled" size="md" component={Link} to="sign-up">
                 {t('home.buttonSignUp')}
               </Button>
             </Group>

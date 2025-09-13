@@ -26,7 +26,9 @@ const theme = createTheme({
 });
 
 export async function loader({ request }: Route.LoaderArgs) {
-  await requireAuth(request);
+  let user = null;
+  user = await requireAuth(request, { redirect: false });
+  return { user };
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {

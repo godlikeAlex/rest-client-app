@@ -39,7 +39,7 @@ export default function Header() {
                   <Button
                     variant="subtle"
                     component={Link}
-                    to={'signIn'}
+                    to={'sign-in'}
                     px={1}
                   >
                     {t('home.buttonSignIn')}
@@ -48,7 +48,7 @@ export default function Header() {
                     variant="subtle"
                     px={1}
                     component={Link}
-                    to={'signUp'}
+                    to={'sign-up'}
                   >
                     {t('home.buttonSignUp')}
                   </Button>

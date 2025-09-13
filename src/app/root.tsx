@@ -18,7 +18,6 @@ import {
 } from '@mantine/core';
 
 import type { Route } from './+types/root';
-import { AuthProvider } from '@/context/AuthContext';
 import { requireAuth } from '@/utils/authCheck';
 
 const theme = createTheme({
@@ -45,9 +44,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <MantineProvider theme={theme}>
-          <AuthProvider>{children}</AuthProvider>
-        </MantineProvider>
+        <MantineProvider theme={theme}>{children}</MantineProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

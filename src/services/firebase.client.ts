@@ -35,8 +35,8 @@ export async function signUp({ email, password, name }: SignUpParams) {
   return user;
 }
 
-export function signOutProfile() {
-  signOut(auth);
+export async function signOutProfile() {
+  await signOut(auth);
   console.log('Пользователь вышел из аккаунта');
 }
 

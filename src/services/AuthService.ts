@@ -9,7 +9,9 @@ export default class AuthService {
 
     return {
       jwt,
-      cookieHeader: await session.serialize(jwt),
+      cookieHeader: await session.serialize(jwt, {
+        expires: new Date(Date.now() + 60 * 60 * 24 * 1000),
+      }),
     };
   }
 }

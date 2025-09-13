@@ -1,9 +1,6 @@
 import type { Variable } from '@/types/variables';
 import { useEffect, useState } from 'react';
-import {
-  getUsersVariables,
-  setUsersVariables,
-} from '@/pages/Variables/hooks/useStore';
+import LocalStorageService from '@/services/LocalStorageService';
 
 export default function useVariables(userId: string) {
   const [variables, setVariables] = useState<Variable[]>([]);
@@ -12,7 +9,6 @@ export default function useVariables(userId: string) {
     variable: Variable = { key: '', value: '', enabled: true }
   ) => {
     setVariables((prev) => [...prev, variable]);
-    console.log(variables);
   };
 
   const updateVariable = <K extends keyof Variable>(
@@ -23,7 +19,6 @@ export default function useVariables(userId: string) {
     setVariables((prev) =>
       prev.map((item, i) => (i === index ? { ...item, [key]: value } : item))
     );
-    console.log(variables);
   };
 
   const deleteVariable = (index: number) => {
@@ -31,12 +26,12 @@ export default function useVariables(userId: string) {
   };
 
   useEffect(() => {
-    const loaded = getUsersVariables(userId);
+    const loaded = LocalStorageService.getUsersVariables(userId);
     setVariables(loaded);
   }, [userId]);
 
   useEffect(() => {
-    setUsersVariables(userId, variables);
+    LocalStorageService.setUsersVariables(userId, variables);
   }, [variables, userId]);
 
   return {

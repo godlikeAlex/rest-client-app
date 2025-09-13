@@ -5,6 +5,7 @@ import useVariables from '@/pages/Variables/hooks/useVariables';
 
 export default function VariablesRepeater() {
   const userId = 'user2';
+
   const { t } = useTranslation();
 
   const { variables, addVariable, updateVariable, deleteVariable } =

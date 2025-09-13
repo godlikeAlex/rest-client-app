@@ -19,11 +19,16 @@ import {
 
 import type { Route } from './+types/root';
 import { AuthProvider } from '@/context/AuthContext';
+import { requireAuth } from '@/utils/authCheck';
 
 const theme = createTheme({
   fontFamily: 'Open Sans, sans-serif',
   primaryColor: 'green',
 });
+
+export async function loader({ request }: Route.LoaderArgs) {
+  await requireAuth(request);
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { i18n } = useTranslation();

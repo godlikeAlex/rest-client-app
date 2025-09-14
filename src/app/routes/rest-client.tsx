@@ -6,6 +6,7 @@ import i18next from '@/app/i18next.server';
 
 import type { Route } from './+types/rest-client';
 import { data } from 'react-router';
+import { requireAuth } from '@/utils/authCheck';
 import { RequestService, UrlTransformerService } from '@/services';
 
 export async function action({ request, params }: Route.ActionArgs) {
@@ -26,6 +27,7 @@ export async function action({ request, params }: Route.ActionArgs) {
 }
 
 export async function loader({ request, params }: Route.LoaderArgs) {
+  await requireAuth(request);
   const t = await i18next.getFixedT(request);
 
   const title = t('restClient.seo.title');

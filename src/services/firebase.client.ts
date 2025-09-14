@@ -22,7 +22,6 @@ const firebaseConfig = {
 
 export async function signIn({ email, password }: SignInParams) {
   const user = await signInWithEmailAndPassword(auth, email, password);
-  console.log('Вход выполнен');
   return user;
 }
 
@@ -30,12 +29,11 @@ export async function signUp({ email, password, name }: SignUpParams) {
   const user = await createUserWithEmailAndPassword(auth, email, password);
   const userInfo = user.user;
   updateProfile(userInfo, { displayName: name });
-  console.log('Регистрация прошла успешно');
+  return user;
 }
 
-export function signOutProfile() {
-  signOut(auth);
-  console.log('Пользователь вышел из аккаунта');
+export async function signOutProfile() {
+  await signOut(auth);
 }
 
 const app = initializeApp(firebaseConfig);

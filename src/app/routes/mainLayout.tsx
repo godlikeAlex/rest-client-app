@@ -20,10 +20,9 @@ export function meta({ loaderData }: Route.MetaArgs) {
 }
 
 export default function MainLayout() {
-  const user = false;
   return (
     <main>
-      <Header isUserLog={user} />
+      <Header />
       <Outlet />
       <Footer />
     </main>

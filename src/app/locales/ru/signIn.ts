@@ -9,4 +9,5 @@ export default {
     password: 'Пожалуйста введите ваш пароль',
   },
   button: 'Войти',
+  error: 'Неверный логин или пароль',
 } satisfies typeof import('@/app/locales/en/signIn').default;

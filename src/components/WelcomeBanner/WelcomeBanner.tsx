@@ -1,20 +1,20 @@
 import { Button, Center, Group, Stack, Text } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { NavBar } from '@/components';
+import { Link, useRouteLoaderData } from 'react-router';
 
-type Props = {
-  isUserLog: boolean;
-};
-
-export default function WelcomeBanner({ isUserLog }: Props) {
+export default function WelcomeBanner() {
   const { t } = useTranslation();
+  const rootData = useRouteLoaderData('root');
+  const user = rootData?.user;
+  const userName = user ? user.name : '';
   return (
     <Center py="xl" mih="750px">
       <Stack align="center" gap="md">
-        {isUserLog ? (
+        {user ? (
           <>
             <Text size="xl" fw={600}>
-              {t('home.back')}, {'user'}!
+              {t('home.back')}, {userName}!
             </Text>
             <NavBar />
           </>
@@ -24,10 +24,10 @@ export default function WelcomeBanner({ isUserLog }: Props) {
               {t('home.greetings')}!
             </Text>
             <Group>
-              <Button variant="default" size="md">
+              <Button variant="default" size="md" component={Link} to="sign-in">
                 {t('home.buttonSignIn')}
               </Button>
-              <Button variant="filled" size="md">
+              <Button variant="filled" size="md" component={Link} to="sign-up">
                 {t('home.buttonSignUp')}
               </Button>
             </Group>

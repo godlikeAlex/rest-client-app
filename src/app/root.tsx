@@ -18,12 +18,17 @@ import {
 } from '@mantine/core';
 
 import type { Route } from './+types/root';
-import { AuthProvider } from '@/context/AuthContext';
+import { requireAuth } from '@/utils/authCheck';
 
 const theme = createTheme({
   fontFamily: 'Open Sans, sans-serif',
   primaryColor: 'green',
 });
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const user = await requireAuth(request, { redirect: false });
+  return { user };
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { i18n } = useTranslation();
@@ -40,9 +45,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <MantineProvider theme={theme}>
-          <AuthProvider>{children}</AuthProvider>
-        </MantineProvider>
+        <MantineProvider theme={theme}>{children}</MantineProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

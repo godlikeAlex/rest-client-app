@@ -9,4 +9,5 @@ export default {
     password: 'Please enter your password',
   },
   button: 'Sign in',
+  error: 'Incorrect login or password',
 };

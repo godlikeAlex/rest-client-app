@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "react-router build && node netlify/prepare.js",
-    "dev": "cross-env NODE_ENV=development node ./dev-server.js",
+    "dev": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 NODE_ENV=development node ./dev-server.js",
     "start": "netlify serve",
     "typecheck": "react-router typegen && tsc",
     "format:fix": "prettier . -w -l -u",
@@ -85,6 +85,7 @@
     "postcss-preset-mantine": "^1.18.0",
     "postcss-simple-vars": "^7.0.1",
     "prettier": "3.6.2",
+    "sass-embedded": "^1.92.1",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.42.0",

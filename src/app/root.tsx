@@ -26,8 +26,7 @@ const theme = createTheme({
 });
 
 export async function loader({ request }: Route.LoaderArgs) {
-  let user = null;
-  user = await requireAuth(request, { redirect: false });
+  const user = await requireAuth(request, { redirect: false });
   return { user };
 }
 

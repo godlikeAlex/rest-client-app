@@ -1,18 +1,10 @@
 import { useMemo, useState } from 'react';
-import { IconInfoCircle, IconCopy, IconCheck } from '@tabler/icons-react';
+import { IconInfoCircle } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 
-import {
-  ActionIcon,
-  Alert,
-  CopyButton,
-  Flex,
-  Select,
-  Tooltip,
-  type ComboboxItem,
-} from '@mantine/core';
+import { Alert, Flex, Select, type ComboboxItem } from '@mantine/core';
 
-import { CodeEditor } from '@/components';
+import { CodeEditor, CopyButton } from '@/components';
 import type { CodeEditorHighlightLanguage } from '@/components/CodeEditor';
 
 import CodeGeneratorService, {
@@ -123,25 +115,7 @@ export default function CodeGenerationTab() {
           value={language ? language.value : null}
         />
 
-        <CopyButton value={generatedCode?.toString() ?? ''} timeout={2000}>
-          {({ copied, copy }) => (
-            <Tooltip
-              disabled={!generatedCode}
-              label={copied ? 'Copied' : 'Copy'}
-              withArrow
-              position="right"
-            >
-              <ActionIcon
-                color={copied ? 'teal' : 'gray'}
-                variant="light"
-                onClick={copy}
-                size="input-sm"
-              >
-                {copied ? <IconCheck size={18} /> : <IconCopy size={18} />}
-              </ActionIcon>
-            </Tooltip>
-          )}
-        </CopyButton>
+        <CopyButton content={generatedCode?.toString() ?? ''} />
       </Flex>
 
       {generatedCode ? (

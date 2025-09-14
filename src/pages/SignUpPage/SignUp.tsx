@@ -40,6 +40,8 @@ export default function SignUp() {
     },
   });
 
+  const disabled = form.submitting || fetcher.state === 'submitting';
+
   async function registration(values: AuthorizationValues) {
     setError('');
     try {
@@ -52,7 +54,6 @@ export default function SignUp() {
       const formData = new FormData();
       formData.append('idToken', idToken);
       fetcher.submit(formData, { method: 'post' });
-      form.reset();
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message);
@@ -72,6 +73,7 @@ export default function SignUp() {
           type="text"
           placeholder={t('signUp.placeholders.name')}
           {...form.getInputProps('name')}
+          disabled={disabled}
         />
         <Space h="xs" />
         <TextInput
@@ -79,6 +81,7 @@ export default function SignUp() {
           type="text"
           placeholder={t('signUp.placeholders.email')}
           {...form.getInputProps('email')}
+          disabled={disabled}
         />
         <Space h="xs" />
         <PasswordInput
@@ -86,6 +89,7 @@ export default function SignUp() {
           type="password"
           placeholder={t('signUp.placeholders.password')}
           {...form.getInputProps('password')}
+          disabled={disabled}
         />
         <Space h="xs" />
         <PasswordInput
@@ -93,6 +97,7 @@ export default function SignUp() {
           type="password"
           placeholder={t('signUp.placeholders.confirmPassword')}
           {...form.getInputProps('confirmPassword')}
+          disabled={disabled}
         />
         <Space h="xs" />
         <Text c="red" size="sm" mt="xs" ta="center">
@@ -104,6 +109,7 @@ export default function SignUp() {
           color="rgba(125, 217, 33, 1)"
           display="block"
           mx="auto"
+          loading={disabled}
         >
           {t('signUp.button')}
         </Button>

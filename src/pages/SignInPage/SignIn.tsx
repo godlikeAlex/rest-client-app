@@ -18,7 +18,6 @@ export default function SignIn() {
   const fetcher = useFetcher();
   const [error, setError] = useState('');
   const { t } = useTranslation();
-
   const form = useForm({
     initialValues: {
       email: '',
@@ -31,6 +30,8 @@ export default function SignIn() {
     },
   });
 
+  const disabled = form.submitting || fetcher.state === 'submitting';
+
   async function authorization(values: AuthorizationValues) {
     setError('');
     try {
@@ -39,13 +40,12 @@ export default function SignIn() {
         password: values.password,
       });
       const idToken = await user.user.getIdToken();
-      form.reset();
       const formData = new FormData();
       formData.append('idToken', idToken);
-      fetcher.submit(formData, { method: 'post' });
+      await fetcher.submit(formData, { method: 'post' });
     } catch (error: unknown) {
       if (error instanceof Error) {
-        setError(`Incorrect login or password`);
+        setError(t('signIn.error'));
       }
     }
   }
@@ -62,6 +62,7 @@ export default function SignIn() {
           type="text"
           placeholder={t('signIn.placeholders.email')}
           {...form.getInputProps('email')}
+          disabled={disabled}
         />
         <Space h="xs" />
         <PasswordInput
@@ -69,6 +70,7 @@ export default function SignIn() {
           type="password"
           placeholder={t('signIn.placeholders.password')}
           {...form.getInputProps('password')}
+          disabled={disabled}
         />
         <Space h="xs" />
         <Text c="red" size="sm" mt="xs" ta="center">
@@ -80,6 +82,7 @@ export default function SignIn() {
           color="rgba(125, 217, 33, 1)"
           display="block"
           mx="auto"
+          loading={disabled}
         >
           {t('signIn.button')}
         </Button>

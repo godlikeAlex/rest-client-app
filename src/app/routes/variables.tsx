@@ -1,4 +1,4 @@
-import type { Route } from '../../../.react-router/types/src/app/routes/+types/mainLayout';
+import type { Route } from './+types/variables';
 import i18next from '@/app/i18next.server';
 import { data } from 'react-router';
 import { VariablesPage } from '@/pages/Variables';

@@ -5,6 +5,15 @@ import LocalStorageService from '@/services/LocalStorageService';
 export default function useVariables(userId: string) {
   const [variables, setVariables] = useState<Variable[]>([]);
 
+  useEffect(() => {
+    const loaded = LocalStorageService.getUsersVariables(userId);
+    setVariables(loaded);
+  }, [userId]);
+
+  useEffect(() => {
+    LocalStorageService.setUsersVariables(userId, variables);
+  }, [variables, userId]);
+
   const addVariable = (
     variable: Variable = { key: '', value: '', enabled: true }
   ) => {
@@ -24,15 +33,6 @@ export default function useVariables(userId: string) {
   const deleteVariable = (index: number) => {
     setVariables((prev) => prev.filter((_, i) => i !== index));
   };
-
-  useEffect(() => {
-    const loaded = LocalStorageService.getUsersVariables(userId);
-    setVariables(loaded);
-  }, [userId]);
-
-  useEffect(() => {
-    LocalStorageService.setUsersVariables(userId, variables);
-  }, [variables, userId]);
 
   return {
     variables,

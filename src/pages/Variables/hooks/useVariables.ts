@@ -4,15 +4,18 @@ import LocalStorageService from '@/services/LocalStorageService';
 
 export default function useVariables(userId: string) {
   const [variables, setVariables] = useState<Variable[]>([]);
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
     const loaded = LocalStorageService.getUsersVariables(userId);
-    setVariables(loaded);
+    setVariables(loaded ?? []);
+    setInitialized(true);
   }, [userId]);
 
   useEffect(() => {
+    if (!initialized) return;
     LocalStorageService.setUsersVariables(userId, variables);
-  }, [variables, userId]);
+  }, [variables, userId, initialized]);
 
   const addVariable = (
     variable: Variable = { key: '', value: '', enabled: true }

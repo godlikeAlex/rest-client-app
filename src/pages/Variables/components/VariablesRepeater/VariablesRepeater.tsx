@@ -4,7 +4,7 @@ import RepeaterRow from '@/pages/RestClientPage/components/HeadersRepeater/Repea
 import useVariables from '@/pages/Variables/hooks/useVariables';
 
 export default function VariablesRepeater() {
-  const userId = 'user2';
+  const userId = 'user1';
 
   const { t } = useTranslation();
 

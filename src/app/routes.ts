@@ -13,8 +13,9 @@ export default [
       route('rest-client/:method?/:url?/:body?', 'routes/rest-client.tsx'),
       route('history', 'routes/history.tsx'),
       route('variables', 'routes/variables.tsx'),
-      route('signin', 'routes/signin.tsx'),
-      route('signup', 'routes/signup.tsx'),
+      route('sign-in', 'routes/sign-in.tsx'),
+      route('sign-up', 'routes/sign-up.tsx'),
+      route('logout', 'routes/logout.ts'),
     ]),
   ]),
 ] satisfies RouteConfig;

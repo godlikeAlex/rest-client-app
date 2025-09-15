@@ -1,4 +1,4 @@
-import { signUp } from '@/services/firebase';
+import { signUp } from '@/services/firebase.client';
 import {
   isSamePasswords,
   validatePassword,
@@ -16,10 +16,12 @@ import {
 import { isEmail, useForm } from '@mantine/form';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useFetcher } from 'react-router';
 
 export default function SignUp() {
   const [error, setError] = useState('');
   const { t } = useTranslation();
+  const fetcher = useFetcher();
 
   const form = useForm({
     initialValues: {
@@ -38,15 +40,20 @@ export default function SignUp() {
     },
   });
 
+  const disabled = form.submitting || fetcher.state === 'submitting';
+
   async function registration(values: AuthorizationValues) {
     setError('');
     try {
-      await signUp({
+      const user = await signUp({
         email: values.email,
         password: values.password,
         name: values.name || '',
       });
-      form.reset();
+      const idToken = await user.user.getIdToken();
+      const formData = new FormData();
+      formData.append('idToken', idToken);
+      fetcher.submit(formData, { method: 'post' });
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message);
@@ -66,6 +73,7 @@ export default function SignUp() {
           type="text"
           placeholder={t('signUp.placeholders.name')}
           {...form.getInputProps('name')}
+          disabled={disabled}
         />
         <Space h="xs" />
         <TextInput
@@ -73,6 +81,7 @@ export default function SignUp() {
           type="text"
           placeholder={t('signUp.placeholders.email')}
           {...form.getInputProps('email')}
+          disabled={disabled}
         />
         <Space h="xs" />
         <PasswordInput
@@ -80,6 +89,7 @@ export default function SignUp() {
           type="password"
           placeholder={t('signUp.placeholders.password')}
           {...form.getInputProps('password')}
+          disabled={disabled}
         />
         <Space h="xs" />
         <PasswordInput
@@ -87,6 +97,7 @@ export default function SignUp() {
           type="password"
           placeholder={t('signUp.placeholders.confirmPassword')}
           {...form.getInputProps('confirmPassword')}
+          disabled={disabled}
         />
         <Space h="xs" />
         <Text c="red" size="sm" mt="xs" ta="center">
@@ -98,6 +109,7 @@ export default function SignUp() {
           color="rgba(125, 217, 33, 1)"
           display="block"
           mx="auto"
+          loading={disabled}
         >
           {t('signUp.button')}
         </Button>

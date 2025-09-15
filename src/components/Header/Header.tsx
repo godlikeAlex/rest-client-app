@@ -1,15 +1,14 @@
-import { Link } from 'react-router';
+import { Link, useRouteLoaderData } from 'react-router';
 import logo from '@/assets/logo.svg';
 import i18next from '@/app/i18n';
 import { Button, Group, Container, Image, Divider } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
+import { signOutProfile } from '@/services/firebase.client';
 
-type Props = {
-  isUserLog: boolean;
-};
-
-export default function Header({ isUserLog }: Props) {
+export default function Header() {
   const { t } = useTranslation();
+  const rootData = useRouteLoaderData('root');
+  const user = rootData?.user;
 
   return (
     <>
@@ -26,14 +25,21 @@ export default function Header({ isUserLog }: Props) {
               />
             </Link>
             <Group ml="md">
-              {isUserLog ? (
-                <Button variant="subtle">{t('home.buttonSignOut')}</Button>
+              {user ? (
+                <Button
+                  variant="subtle"
+                  onClick={async () => await signOutProfile()}
+                  component={Link}
+                  to={'logout'}
+                >
+                  {t('home.buttonSignOut')}
+                </Button>
               ) : (
                 <>
                   <Button
                     variant="subtle"
                     component={Link}
-                    to={'signin'}
+                    to={'sign-in'}
                     px={1}
                   >
                     {t('home.buttonSignIn')}
@@ -42,7 +48,7 @@ export default function Header({ isUserLog }: Props) {
                     variant="subtle"
                     px={1}
                     component={Link}
-                    to={'signup'}
+                    to={'sign-up'}
                   >
                     {t('home.buttonSignUp')}
                   </Button>

@@ -2,8 +2,11 @@ import type { Route } from './+types/variables';
 import i18next from '@/app/i18next.server';
 import { data } from 'react-router';
 import { VariablesPage } from '@/pages/Variables';
+import { requireAuth } from '@/utils/authCheck';
 
 export async function loader({ request }: Route.LoaderArgs) {
+  await requireAuth(request);
+
   const t = await i18next.getFixedT(request);
 
   const title = t('home.seo.title');

@@ -113,6 +113,8 @@ export default function CodeGenerationTab() {
           data={CODEGENERATION_LANGUAGES}
           onChange={handleSelectLanguage}
           value={language ? language.value : null}
+          allowDeselect={false}
+          placeholder="language"
         />
 
         <CopyButton content={generatedCode?.toString() ?? ''} />

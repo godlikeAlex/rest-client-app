@@ -16,7 +16,7 @@ interface RequestSuccess {
   contentType: 'json' | 'html';
 }
 
-interface RequestError {
+export interface RequestError {
   error: true;
   message: string;
   requestTimestamp: string;

@@ -28,6 +28,6 @@ export function validatePassword(value: string) {
 }
 
 export function isSamePasswords(value: string, values: AuthorizationValues) {
-  if (value !== values.password) t('validate.validateConfirmPassword');
+  if (value !== values.password) return t('validate.validateConfirmPassword');
   return null;
 }

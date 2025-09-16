@@ -1,4 +1,9 @@
 export default {
+  seo: {
+    title: 'Sign In',
+    description:
+      'Sign in to send API requests, save variables, and manage your workflow with our powerful REST client.',
+  },
   signInTitle: 'Authorization',
   labels: {
     email: 'Email',

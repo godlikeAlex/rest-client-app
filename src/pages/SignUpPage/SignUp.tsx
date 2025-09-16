@@ -18,7 +18,8 @@ import { isEmail, useForm } from '@mantine/form';
 import { IconAlertCircle } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useFetcher } from 'react-router';
+import { useFetcher } from 'react-router';
+import { LocaleLink } from '@/components';
 
 export default function SignUp() {
   const [error, setError] = useState('');
@@ -126,7 +127,7 @@ export default function SignUp() {
 
         <Text mt="md" ta="center">
           {t('signUp.hasAccountMessage')}{' '}
-          <Anchor component={Link} to="/sign-in">
+          <Anchor component={LocaleLink} to="/sign-in">
             {t('home.buttonSignIn')}
           </Anchor>
         </Text>

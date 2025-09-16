@@ -5,14 +5,16 @@ import signIn from './signIn';
 import signUp from './signUp';
 import validate from './validate';
 import restClient from './rest-client';
+import variables from './variables';
 import copyButton from './copy-button';
 
 export default {
   notFound,
   home,
   restClient,
+  variables,
   signIn,
   signUp,
   validate,
-  copyButton
+  copyButton,
 } satisfies Resource;

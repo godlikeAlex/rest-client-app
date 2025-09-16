@@ -14,5 +14,5 @@ export default {
   signIn,
   signUp,
   validate,
-  copyButton
+  copyButton,
 } satisfies Resource;

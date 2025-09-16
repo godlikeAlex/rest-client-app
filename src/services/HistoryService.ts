@@ -1,6 +1,6 @@
 import { serverDb } from '@/services/firebase.server';
 
-type requestData = {
+export type requestData = {
   id: string;
   url: string;
   method: string;
@@ -11,14 +11,14 @@ type requestData = {
   responseSize: number;
   error: string | null;
   requestData: {
-    headers: Record<string, string>;
+    headers: { key: string; value: string; enabled: boolean }[];
     body: string;
     queryParams: Record<string, string>;
   };
 };
 
 export default class HistoryService {
-  static async saveUserHistory(userId: string) {
+  static async saveUserHistory(userId: string, data: Omit<requestData, 'id'>) {
     const userDoc = serverDb
       .collection('users')
       .doc(userId)
@@ -26,19 +26,7 @@ export default class HistoryService {
     const requestRef = userDoc.doc();
 
     await requestRef.set({
-      url: 'https://api.example.com/users/1',
-      method: 'POST',
-      statusCode: 204,
-      duration: 10,
-      timestamp: Date.now(),
-      requestSize: 120,
-      responseSize: 2048,
-      error: null,
-      requestData: {
-        headers: { Authorization: 'Bearer token' },
-        body: '',
-        queryParams: { page: '1' },
-      },
+      ...data,
     });
   }
 

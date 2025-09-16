@@ -8,8 +8,11 @@ import type { Route } from './+types/rest-client';
 import { data } from 'react-router';
 import { requireAuth } from '@/utils/authCheck';
 import { RequestService, UrlTransformerService } from '@/services';
+import HistoryService, { type requestData } from '@/services/HistoryService';
 
 export async function action({ request, params }: Route.ActionArgs) {
+  const user = await requireAuth(request);
+  if (!user) return;
   const { url, body, headers } = UrlTransformerService.decode({
     url: params.url ?? '',
     body: params.body,
@@ -23,6 +26,27 @@ export async function action({ request, params }: Route.ActionArgs) {
     clientHeaders: headers,
   });
 
+  const data: Omit<requestData, 'id'> = {
+    url,
+    method: params.method ?? 'GET',
+    statusCode: response.error ? 0 : response.status,
+    duration: response.error ? 0 : response.time,
+    timestamp: Date.now(),
+    requestSize: response.error ? body?.length || 0 : response.requestSize,
+    responseSize: response.error ? 0 : response.responseSize,
+    error: response.error ? response.message : null,
+    requestData: {
+      headers: headers.map((h) => ({
+        key: h.key,
+        value: h.value,
+        enabled: true,
+      })),
+      body: body || '',
+      queryParams: {}, // можно распарсить из URL, если нужно
+    },
+  };
+
+  await HistoryService.saveUserHistory(user.uid, data);
   return response;
 }
 

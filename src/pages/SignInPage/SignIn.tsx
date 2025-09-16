@@ -2,17 +2,20 @@ import { signIn } from '@/services/firebase.client';
 import { validatePassword, type AuthorizationValues } from '@/utils/validate';
 import {
   Button,
-  Container,
   Text,
   PasswordInput,
-  Space,
   TextInput,
   Title,
+  Card,
+  Box,
+  Anchor,
+  Alert,
 } from '@mantine/core';
 import { isEmail, useForm } from '@mantine/form';
+import { IconAlertCircle } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useFetcher } from 'react-router';
+import { Link, useFetcher } from 'react-router';
 
 export default function SignIn() {
   const fetcher = useFetcher();
@@ -51,12 +54,16 @@ export default function SignIn() {
   }
 
   return (
-    <Container size="xs">
+    <Card shadow="sm" padding="lg" radius="md" withBorder>
       <Title order={3} ta="center">
         {t('signIn.signInTitle')}
       </Title>
-      <Space h="xs" />
-      <form onSubmit={form.onSubmit(authorization)}>
+
+      <Text c="dimmed" ta="center">
+        {t('signIn.signInDescription')}
+      </Text>
+
+      <Box mt={'sm'} component="form" onSubmit={form.onSubmit(authorization)}>
         <TextInput
           label={t('signIn.labels.email')}
           type="text"
@@ -64,29 +71,37 @@ export default function SignIn() {
           {...form.getInputProps('email')}
           disabled={disabled}
         />
-        <Space h="xs" />
+
         <PasswordInput
           label={t('signIn.labels.password')}
           type="password"
           placeholder={t('signIn.placeholders.password')}
           {...form.getInputProps('password')}
           disabled={disabled}
+          mt={'md'}
         />
-        <Space h="xs" />
-        <Text c="red" size="sm" mt="xs" ta="center">
-          {error}
-        </Text>
-        <Space h="xs" />
-        <Button
-          type="submit"
-          color="rgba(125, 217, 33, 1)"
-          display="block"
-          mx="auto"
-          loading={disabled}
-        >
+
+        {error ? (
+          <Alert
+            mt={'md'}
+            variant="light"
+            color="red"
+            title={error}
+            icon={<IconAlertCircle />}
+          />
+        ) : null}
+
+        <Button type="submit" mt={'lg'} fullWidth loading={disabled}>
           {t('signIn.button')}
         </Button>
-      </form>
-    </Container>
+
+        <Text mt="md" ta="center">
+          {t('signIn.noAccountMessage')}{' '}
+          <Anchor component={Link} to="/sign-up">
+            {t('home.buttonSignUp')}
+          </Anchor>
+        </Text>
+      </Box>
+    </Card>
   );
 }

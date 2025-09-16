@@ -4,7 +4,9 @@ export default {
     description:
       'Sign in to send API requests, save variables, and manage your workflow with our powerful REST client.',
   },
-  signInTitle: 'Authorization',
+  signInTitle: 'Sign In',
+  signInDescription: 'Please sign in to continue.',
+  noAccountMessage: "Don't have an account?",
   labels: {
     email: 'Email',
     password: 'Password',

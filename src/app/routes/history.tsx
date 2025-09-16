@@ -32,6 +32,8 @@ export default function History() {
     return <p>Вы ещё не выполнили не одного запроса.</p>;
   }
 
+  const sortedRequests = [...requests].sort((a, b) => b.duration - a.duration);
+
   function setColorBadge(method: string) {
     if (method === 'GET') return 'green';
     if (method === 'PUT') return 'red';
@@ -41,7 +43,7 @@ export default function History() {
 
   return (
     <Accordion variant="separated" radius="xs" chevronPosition="left">
-      {requests.map((request) => {
+      {sortedRequests.map((request) => {
         const encodedUrl = UrlTransformerService.encode({
           url: request.url,
           body: request.requestData?.body || '',

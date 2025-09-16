@@ -6,6 +6,7 @@ import signUp from './signUp';
 import validate from './validate';
 import restClient from './rest-client';
 import copyButton from './copy-button';
+import history from './history';
 
 export default {
   notFound,
@@ -15,4 +16,5 @@ export default {
   signUp,
   validate,
   copyButton,
+  history,
 } satisfies Resource;

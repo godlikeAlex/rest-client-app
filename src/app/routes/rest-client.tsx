@@ -42,7 +42,7 @@ export async function action({ request, params }: Route.ActionArgs) {
         enabled: true,
       })),
       body: body || '',
-      queryParams: {}, // можно распарсить из URL, если нужно
+      queryParams: {},
     },
   };
 

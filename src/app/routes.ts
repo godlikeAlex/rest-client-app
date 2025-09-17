@@ -17,6 +17,7 @@ export default [
         route('sign-up', 'routes/sign-up.tsx'),
         route('logout', 'routes/logout.ts'),
       ]),
+      route('variables', 'routes/variables.tsx'),
     ]),
   ]),
 ] satisfies RouteConfig;

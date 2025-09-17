@@ -2,7 +2,8 @@ import { SignIn } from '@/pages';
 import { data, redirect, type ActionFunction } from 'react-router';
 import AuthService from '@/services/AuthService';
 import type { Route } from './+types/sign-in';
-import i18next from '@/app/i18next.server';
+import i18next from '../i18next.server';
+
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();

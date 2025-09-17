@@ -18,7 +18,7 @@ interface RequestSuccess extends RequestBase {
   contentType: 'json' | 'html';
 }
 
-interface RequestError {
+export interface RequestError {
   error: true;
   message: string;
   requestTimestamp: string;

@@ -37,7 +37,13 @@ export default function HttpStatusBadge({ variant = 'light', status }: Props) {
   const color = STATUS_COLORS[status] ?? 'gray';
 
   return (
-    <Badge color={color} radius="sm" size="lg" variant={variant}>
+    <Badge
+      data-testid="badge"
+      color={color}
+      radius="sm"
+      size="lg"
+      variant={variant}
+    >
       {status}
     </Badge>
   );

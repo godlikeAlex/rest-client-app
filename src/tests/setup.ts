@@ -28,3 +28,11 @@ Range.prototype.getClientRects = () => ({
   length: 0,
   [Symbol.iterator]: vi.fn(),
 });
+
+global.ResizeObserver = class {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};
+
+window.HTMLElement.prototype.scrollIntoView = function () {};

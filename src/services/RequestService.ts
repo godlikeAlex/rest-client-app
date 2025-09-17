@@ -4,14 +4,16 @@ import type { HeaderClient } from '@/types/headers';
 
 type ResponseHeader = { key: string; value: string };
 
-interface RequestSuccess {
-  error: false;
+export interface RequestBase {
   status: number;
   time: number;
-  data: string;
-  headers: ResponseHeader[];
   requestSize: number;
   responseSize: number;
+}
+interface RequestSuccess extends RequestBase {
+  error: false;
+  data: string;
+  headers: ResponseHeader[];
   requestTimestamp: string;
   contentType: 'json' | 'html';
 }

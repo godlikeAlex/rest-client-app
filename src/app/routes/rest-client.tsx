@@ -8,7 +8,7 @@ import type { Route } from './+types/rest-client';
 import { data } from 'react-router';
 import { requireAuth } from '@/utils/authCheck';
 import { RequestService, UrlTransformerService } from '@/services';
-import HistoryService, { type requestData } from '@/services/HistoryService';
+import HistoryService, { type RequestData } from '@/services/HistoryService';
 
 export async function action({ request, params }: Route.ActionArgs) {
   const user = await requireAuth(request);
@@ -26,12 +26,12 @@ export async function action({ request, params }: Route.ActionArgs) {
     clientHeaders: headers,
   });
 
-  const data: Omit<requestData, 'id'> = {
+  const data: Omit<RequestData, 'id'> = {
     url,
     method: params.method ?? 'GET',
-    statusCode: response.error ? 0 : response.status,
+    status: response.error ? 0 : response.status,
     duration: response.error ? 0 : response.time,
-    timestamp: Date.now(),
+    time: Date.now(),
     requestSize: response.error ? body?.length || 0 : response.requestSize,
     responseSize: response.error ? 0 : response.responseSize,
     error: response.error ? response.message : null,

@@ -4,4 +4,3 @@ export * from './RequestForm';
 export * from './CodeGenerationTab';
 export * from './Loader';
 export * from './ResponseSection';
-export * from './FeedbackSection';

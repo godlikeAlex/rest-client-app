@@ -1,7 +1,7 @@
 import { requireAuth } from '@/utils/authCheck';
 import type { Route } from './+types/history';
 import HistoryService from '@/services/HistoryService';
-import HistoryPage from '@/pages/HistoryPage/history';
+import HistoryPage from '@/pages/HistoryPage/HistoryPage';
 import i18next from '../i18next.server';
 
 export async function loader({ request }: Route.LoaderArgs) {

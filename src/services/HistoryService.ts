@@ -1,24 +1,21 @@
 import { serverDb } from '@/services/firebase.server';
+import type { RequestBase } from './RequestService';
 
-export type requestData = {
+export interface RequestData extends RequestBase {
   id: string;
   url: string;
   method: string;
-  statusCode: number;
   duration: number;
-  timestamp: number;
-  requestSize: number;
-  responseSize: number;
   error: string | null;
   requestData: {
     headers: { key: string; value: string; enabled: boolean }[];
     body: string;
     queryParams: Record<string, string>;
   };
-};
+}
 
 export default class HistoryService {
-  static async saveUserHistory(userId: string, data: Omit<requestData, 'id'>) {
+  static async saveUserHistory(userId: string, data: Omit<RequestData, 'id'>) {
     const userDoc = serverDb
       .collection('users')
       .doc(userId)
@@ -37,11 +34,11 @@ export default class HistoryService {
       .collection('requests');
     const snapshot = await colRef.get();
 
-    const data: requestData[] = [];
+    const data: RequestData[] = [];
 
     snapshot.forEach((doc) => {
       data.push({
-        ...(doc.data() as requestData),
+        ...(doc.data() as RequestData),
         id: doc.id,
       });
     });

@@ -1,8 +1,9 @@
 import { SignIn } from '@/pages';
-import { redirect, type ActionFunction } from 'react-router';
+import { data, redirect, type ActionFunction } from 'react-router';
 import AuthService from '@/services/AuthService';
 import type { Route } from './+types/sign-in';
 import i18next from '../i18next.server';
+
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -22,18 +23,14 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   const title = t('signIn.seo.title');
   const description = t('signIn.seo.description');
-  return {
-    meta: {
-      title,
-      description,
-    },
-  };
+
+  return data({ title, description });
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
   return [
-    { title: loaderData.meta?.title },
-    { name: 'description', content: loaderData.meta?.description },
+    { title: loaderData.title },
+    { name: 'description', content: loaderData.description },
   ];
 }
 

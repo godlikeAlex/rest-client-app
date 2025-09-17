@@ -19,6 +19,7 @@ import {
 
 import type { Route } from './+types/root';
 import { requireAuth } from '@/utils/authCheck';
+import LocalStorageService from '@/services/LocalStorageService';
 
 const theme = createTheme({
   fontFamily: 'Open Sans, sans-serif',
@@ -28,6 +29,21 @@ const theme = createTheme({
 export async function loader({ request }: Route.LoaderArgs) {
   const user = await requireAuth(request, { redirect: false });
   return { user };
+}
+
+export async function clientLoader({ serverLoader }: Route.ClientLoaderArgs) {
+  const { user } = await serverLoader();
+  if (!user?.uid) {
+    return { user };
+  }
+
+  const variables = LocalStorageService.getUsersVariables(user.uid);
+  return {
+    user: {
+      ...user,
+      variables,
+    },
+  };
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {

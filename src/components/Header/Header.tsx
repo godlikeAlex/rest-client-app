@@ -1,77 +1,103 @@
-import { Link, useRouteLoaderData } from 'react-router';
-import logo from '@/assets/logo.svg';
-import i18next from '@/app/i18n';
-import { Button, Group, Container, Image, Divider } from '@mantine/core';
+import { Link, useLocation, useParams, useRouteLoaderData } from 'react-router';
+import logo from '@/assets/logo.webp';
+import {
+  Button,
+  Group,
+  Container,
+  Image,
+  Divider,
+  Box,
+  Flex,
+  SegmentedControl,
+  UnstyledButton,
+} from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { signOutProfile } from '@/services/firebase.client';
+import { LocaleLink } from '../LocaleLink';
+import replaceLanguage from '@/utils/replace-language';
 
 export default function Header() {
   const { t } = useTranslation();
+
+  const { locale } = useParams<'locale'>();
+  const { pathname } = useLocation();
+
   const rootData = useRouteLoaderData('root');
   const user = rootData?.user;
 
   return (
-    <>
-      <Container py="md" px="xl" fluid>
-        <Group justify="space-between">
-          <Group>
-            <Link to="/">
-              <Image
-                src={logo}
-                width={60}
-                height={60}
-                fit="contain"
-                alt="Logo"
-              />
-            </Link>
-            <Group ml="md">
+    <Box component="header">
+      <Container py={'sm'} size="lg">
+        <Flex justify="space-between">
+          <LocaleLink to="/">
+            <Image src={logo} w={120} alt="logo" />
+          </LocaleLink>
+
+          <Flex align="center">
+            <Group gap={10}>
               {user ? (
                 <Button
-                  variant="subtle"
                   onClick={async () => await signOutProfile()}
                   component={Link}
+                  variant="outline"
                   to={'logout'}
                 >
                   {t('home.buttonSignOut')}
                 </Button>
               ) : (
                 <>
-                  <Button
-                    variant="subtle"
-                    component={Link}
-                    to={'sign-in'}
-                    px={1}
-                  >
+                  <Button variant="outline" component={Link} to={'sign-in'}>
                     {t('home.buttonSignIn')}
                   </Button>
-                  <Button
-                    variant="subtle"
-                    px={1}
-                    component={Link}
-                    to={'sign-up'}
-                  >
+                  <Button component={Link} to={'sign-up'}>
                     {t('home.buttonSignUp')}
                   </Button>
                 </>
               )}
             </Group>
-          </Group>
-          <Group gap={2}>
-            {i18next.supportedLngs.map((language) => (
-              <Button
-                variant="default"
-                size="sm"
-                component={Link}
-                to={`/${language}`}
-                key={language}
-              >
-                {language}
-              </Button>
-            ))}
-          </Group>
-        </Group>
+
+            <Group gap={2} ml={28}>
+              <SegmentedControl
+                styles={{ label: { padding: 0 } }}
+                value={locale}
+                data={[
+                  {
+                    value: 'ru',
+                    label: (
+                      <UnstyledButton
+                        component={Link}
+                        display="block"
+                        px="xs"
+                        py={4}
+                        to={replaceLanguage(pathname, 'ru')}
+                      >
+                        Русский 🇷🇺
+                      </UnstyledButton>
+                    ),
+                  },
+                  {
+                    value: 'en',
+                    label: (
+                      <UnstyledButton
+                        component={Link}
+                        display="block"
+                        px="xs"
+                        py={4}
+                        to={replaceLanguage(pathname, 'en')}
+                      >
+                        English 🇬🇧
+                      </UnstyledButton>
+                    ),
+                  },
+                ]}
+                size="md"
+              />
+            </Group>
+          </Flex>
+        </Flex>
       </Container>
+
       <Divider />
-    </>
+    </Box>
   );
 }

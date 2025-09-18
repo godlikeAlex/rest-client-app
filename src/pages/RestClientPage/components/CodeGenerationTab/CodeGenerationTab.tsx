@@ -13,6 +13,7 @@ import CodeGeneratorService, {
 import useRequestForm from '@/pages/RestClientPage/hooks/useRequestForm';
 import useHeaders from '@/pages/RestClientPage/hooks/useHeaders';
 import useRestState from '@/pages/RestClientPage/hooks/useRestState';
+import { useRouteLoaderData } from 'react-router';
 
 type ComboboxSnippet = {
   label: string;
@@ -85,15 +86,22 @@ export default function CodeGenerationTab() {
     defaultCodeSnippetLanguage
   );
 
+  const rootData = useRouteLoaderData('root');
+  const variables = rootData.user.variables;
+
   const generatedCode = useMemo(() => {
     if (!language) return;
 
-    return CodeGeneratorService.generateCodeSnippet(language.value, {
-      url: url,
-      method: method,
-      headers,
-      body,
-    });
+    return CodeGeneratorService.generateCodeSnippet(
+      language.value,
+      {
+        url: url,
+        method: method,
+        headers,
+        body,
+      },
+      variables
+    );
   }, [language, url, method, headers, body]);
 
   function handleSelectLanguage(_: string | null, option: ComboboxItem) {

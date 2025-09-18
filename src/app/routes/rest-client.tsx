@@ -61,6 +61,8 @@ export default function RestClient({ loaderData }: Route.ComponentProps) {
   const revalidator = useRevalidator();
 
   useEffect(() => {
+    revalidator.revalidate();
+
     const handleFocus = () => {
       revalidator.revalidate();
     };

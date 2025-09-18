@@ -1,20 +1,20 @@
 import type { Variable } from '@/types/variables';
 import { useEffect, useState } from 'react';
-import LocalStorageService from '@/services/LocalStorageService';
+import VariablesService from '@/services/VariablesService';
 
 export default function useVariables(userId: string) {
   const [variables, setVariables] = useState<Variable[]>([]);
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    const loaded = LocalStorageService.getUsersVariables(userId);
+    const loaded = VariablesService.getUsersVariables(userId);
     setVariables(loaded ?? []);
     setInitialized(true);
   }, [userId]);
 
   useEffect(() => {
     if (!initialized) return;
-    LocalStorageService.setUsersVariables(userId, variables);
+    VariablesService.setUsersVariables(userId, variables);
   }, [variables, userId, initialized]);
 
   const addVariable = (

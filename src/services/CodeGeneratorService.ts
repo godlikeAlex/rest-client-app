@@ -1,5 +1,7 @@
 import type { HeaderClient } from '@/types/headers';
 import { HTTPSnippet } from 'httpsnippet';
+import VariablesService from '@/services/VariablesService';
+import type { Variable } from '@/types/variables';
 
 const options = { indent: '\u0020\u0020' };
 
@@ -31,21 +33,30 @@ type GenerateCodeSnippetOptions = {
 export default class CodeGeneratorService {
   static generateCodeSnippet(
     language: SnippetGeneratorKey,
-    { method, url, headers: requestHeaders, body }: GenerateCodeSnippetOptions
+    { method, url, headers: requestHeaders, body }: GenerateCodeSnippetOptions,
+    variables: Variable[]
   ) {
-    const headers = requestHeaders
+    const {
+      url: replacedUrl,
+      body: replacedBody,
+      headers: replacedHeaders,
+    } = VariablesService.replaceVariables(
+      { url, body, headers: requestHeaders },
+      variables
+    );
+    const includeHeaders = replacedHeaders
       .filter((header) => header.enabled)
       .map((header) => ({ name: header.key, value: header.value }));
 
     try {
       const snippet = new HTTPSnippet({
         method: method,
-        url: url,
+        url: replacedUrl,
         postData: {
           mimeType: 'application/json',
-          text: body,
+          text: replacedBody,
         },
-        headers,
+        includeHeaders,
       });
 
       const snippetGenerator = codeSnippetsMap[language];

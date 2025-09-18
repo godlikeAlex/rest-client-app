@@ -9,8 +9,7 @@ import useRestState from '@/pages/RestClientPage/hooks/useRestState';
 import { UrlTransformerService } from '@/services';
 import useFetcherRest from '@/pages/RestClientPage/hooks/useFetcherRest';
 import { useRouteLoaderData } from 'react-router';
-import ReplaceVariablesService from '@/services/ReplaceVariablesService';
-import useVariables from '@/pages/Variables/hooks/useVariables';
+import VariablesService from '@/services/VariablesService';
 
 const METHODS = ['GET', 'POST', 'PUT', 'DELETE'];
 
@@ -25,7 +24,7 @@ export default function RequestForm() {
   const [error, setError] = useState(false);
 
   const rootData = useRouteLoaderData('root');
-  const { variables } = useVariables(rootData.user.uid);
+  const variables = rootData.user.variables;
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,22 +34,14 @@ export default function RequestForm() {
       return;
     }
 
-    const {
-      url: finalUrl,
-      body: finalBody,
-      headers: finalHeaders,
-    } = ReplaceVariablesService.prepareRequestComponents(
-      url,
-      body,
-      headers,
+    const replaced = VariablesService.replaceVariables(
+      { url, body, headers },
       variables
     );
 
     const encodedForServer = UrlTransformerService.encode({
-      body: finalBody,
+      ...replaced,
       method,
-      headers: finalHeaders,
-      url: finalUrl,
     });
 
     const encodedForHistory = UrlTransformerService.encode({

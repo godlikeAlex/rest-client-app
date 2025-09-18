@@ -1,5 +1,5 @@
 import { Flex, Image, Text, Title } from '@mantine/core';
-import waitingResponseImage from '@/assets/waiting-response.webp';
+import waitingResponseImage from '@/assets/hello.webp';
 import errorResponseImage from '@/assets/error-response.webp';
 
 type FeedbackStatus = 'idle' | 'error';

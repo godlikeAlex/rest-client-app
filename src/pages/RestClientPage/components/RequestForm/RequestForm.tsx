@@ -8,6 +8,9 @@ import useHeaders from '@/pages/RestClientPage/hooks/useHeaders';
 import useRestState from '@/pages/RestClientPage/hooks/useRestState';
 import { UrlTransformerService } from '@/services';
 import useFetcherRest from '@/pages/RestClientPage/hooks/useFetcherRest';
+import { useRouteLoaderData } from 'react-router';
+import ReplaceVariablesService from '@/services/ReplaceVariablesService';
+import useVariables from '@/pages/Variables/hooks/useVariables';
 
 const METHODS = ['GET', 'POST', 'PUT', 'DELETE'];
 
@@ -21,6 +24,9 @@ export default function RequestForm() {
 
   const [error, setError] = useState(false);
 
+  const rootData = useRouteLoaderData('root');
+  const { variables } = useVariables(rootData.user.uid);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -28,8 +34,25 @@ export default function RequestForm() {
       setError(true);
       return;
     }
+    const finalUrl = ReplaceVariablesService.replaceVariables(url, variables);
+    const finalBody = body
+      ? ReplaceVariablesService.replaceVariables(body, variables)
+      : '';
 
-    const encodedUrl = UrlTransformerService.encode({
+    const finalHeaders = headers.map((obj) => ({
+      ...obj,
+      key: ReplaceVariablesService.replaceVariables(obj.key, variables),
+      value: ReplaceVariablesService.replaceVariables(obj.value, variables),
+    }));
+
+    const encodedForServer = UrlTransformerService.encode({
+      body: finalBody,
+      method,
+      headers: finalHeaders,
+      url: finalUrl,
+    });
+
+    const encodedForHistory = UrlTransformerService.encode({
       body,
       method,
       headers,
@@ -38,12 +61,13 @@ export default function RequestForm() {
 
     setError(false);
 
-    const actionUrl = `/${i18n.language}/rest-client/${encodedUrl}`;
-
+    const actionUrl = `/${i18n.language}/rest-client/${encodedForHistory}`;
+    const serverUrl = `/${i18n.language}/rest-client/${encodedForServer}`;
+    console.log(actionUrl, serverUrl);
     window.history.replaceState(null, '', actionUrl);
 
     fetcher.submit(e.currentTarget, {
-      action: actionUrl,
+      action: serverUrl,
     });
   };
 

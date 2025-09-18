@@ -4,7 +4,6 @@ import AuthService from '@/services/AuthService';
 import type { Route } from './+types/sign-in';
 import i18next from '../i18next.server';
 
-
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const idToken = formData.get('idToken')?.toString();

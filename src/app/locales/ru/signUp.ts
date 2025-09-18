@@ -20,9 +20,4 @@ export default {
     confirmPassword: 'Пожалуйста подвердите пароль',
   },
   button: 'Зарегистрироваться',
-  seo: {
-    title: 'Страница регистрации',
-    description:
-      'Создайте аккаунт в REST-клиенте и начните выполнять HTTP-запросы, сохранять историю и управлять заголовками и параметрами.',
-  },
 } satisfies typeof import('@/app/locales/en/signUp').default;

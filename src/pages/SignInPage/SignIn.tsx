@@ -47,6 +47,7 @@ export default function SignIn() {
       const formData = new FormData();
       formData.append('idToken', idToken);
       await fetcher.submit(formData, { method: 'post' });
+      setError('');
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(t('signIn.error'));

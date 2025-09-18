@@ -1,57 +1,58 @@
-import { Group, Text, Divider, Stack, Anchor, Image } from '@mantine/core';
+import { Group, Text, Divider, Stack, Anchor, Image, Box } from '@mantine/core';
 import logoRS from '@/assets/rs_school.svg';
+import { IconBrandGithub } from '@tabler/icons-react';
 
 export default function Footer() {
   return (
-    <>
+    <Box component="footer">
       <Divider />
       <Group justify="space-between" py="md" px="xl">
-        <Anchor href="https://rs.school/" target="_blank" size="xl">
-          <Image
-            src={logoRS}
-            width={40}
-            height={40}
-            fit="contain"
-            alt="rs-school"
-          />
-        </Anchor>
         <Stack gap="xs">
           <Text size="sm" fw={700} c="dimmed">
-            GitHub
+            <IconBrandGithub size={16} />
+            Contributors:
           </Text>
-          <Anchor
-            href="https://github.com/godlikeAlex"
-            target="_blank"
-            size="sm"
-            c="dimmed"
-            underline="never"
-          >
-            Aleksandr Yurkovskiy
-          </Anchor>
-          <Anchor
-            href="https://github.com/alexanderkalyupanov"
-            target="_blank"
-            size="sm"
-            c="dimmed"
-            underline="never"
-          >
-            Alexander Kalyupanov
-          </Anchor>
+          <Group>
+            <Anchor
+              href="https://github.com/godlikeAlex"
+              target="_blank"
+              size="sm"
+              c="dimmed"
+            >
+              Aleksandr Yurkovskiy
+            </Anchor>
+            <Anchor
+              href="https://github.com/alexanderkalyupanov"
+              target="_blank"
+              size="sm"
+              c="dimmed"
+            >
+              Alexander Kalyupanov
+            </Anchor>
 
-          <Anchor
-            href="https://github.com/kateNEO"
-            target="_blank"
-            size="sm"
-            c="dimmed"
-            underline="never"
-          >
-            Ekaterina Naumenko
-          </Anchor>
+            <Anchor
+              href="https://github.com/kateNEO"
+              target="_blank"
+              size="sm"
+              c="dimmed"
+            >
+              Ekaterina Naumenko
+            </Anchor>
+          </Group>
         </Stack>
-        <Text size="sm" c="dimmed">
-          © 2025 Rest Client
-        </Text>
+
+        <Anchor
+          href="https://rs.school/"
+          target="_blank"
+          size="xl"
+          underline="never"
+        >
+          <Image src={logoRS} w={125} alt="rs-school" />
+          <Text size="sm" c="dimmed" mt={'xs'}>
+            © 2025 Rest Client
+          </Text>
+        </Anchor>
       </Group>
-    </>
+    </Box>
   );
 }

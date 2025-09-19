@@ -106,7 +106,6 @@ describe('signUp component', () => {
     });
 
     expect(mockGetIdToken).toHaveBeenCalledWith();
-    expect(mockSubmit).toHaveBeenCalledWith();
 
     const submitCall = mockSubmit.mock.calls[0];
     const formData = submitCall[0] as FormData;

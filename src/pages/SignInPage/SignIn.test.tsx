@@ -96,6 +96,9 @@ describe('signIn component', () => {
   });
 
   it('should show error on failed login, then clear error on success', async () => {
+    const mockedSignIn = vi.mocked(signIn);
+    const mockGetIdToken = vi.fn().mockResolvedValue('mock-token');
+
     (signIn as unknown as ReturnType<typeof vi.fn>)
       .mockRejectedValueOnce(new Error('Invalid credentials'))
       .mockResolvedValueOnce({ user: { getIdToken: mockGetIdToken } });
@@ -113,7 +116,7 @@ describe('signIn component', () => {
     const button = screen.getByRole('button', { name: 'Sign in' });
 
     await userEvent.type(inputEmail, 'test@mail.ru');
-    await userEvent.type(inputPassword, '1');
+    await userEvent.type(inputPassword, 'ValidButWillFail1!');
     await userEvent.click(button);
 
     await expect(
@@ -121,8 +124,6 @@ describe('signIn component', () => {
     ).resolves.toBeInTheDocument();
 
     await userEvent.clear(inputPassword);
-    await userEvent.clear(inputEmail);
-    await userEvent.type(inputEmail, 'test@mail.ru');
     await userEvent.type(inputPassword, 'CorrectPassword123!');
     await userEvent.click(button);
 
@@ -132,7 +133,7 @@ describe('signIn component', () => {
       ).not.toBeInTheDocument();
     });
 
-    expect(signIn).toHaveBeenCalledTimes(2);
+    expect(mockedSignIn).toHaveBeenCalledTimes(2);
     expect(mockGetIdToken).toHaveBeenCalledTimes(1);
     expect(mockSubmit).toHaveBeenCalledTimes(1);
   });

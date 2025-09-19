@@ -37,7 +37,7 @@ export default function SignUp() {
     validate: {
       name: (value: string) => (value ? null : t('validate.validateName')),
       email: (value: string) => isEmail(t('validate.validateEmail'))(value),
-      password: (value: string) => validatePassword(value),
+      password: (value: string) => validatePassword(value, t),
       confirmPassword: (value: string, values: AuthorizationValues) =>
         isSamePasswords(value, values),
     },
@@ -57,6 +57,7 @@ export default function SignUp() {
       const formData = new FormData();
       formData.append('idToken', idToken);
       await fetcher.submit(formData, { method: 'post' });
+      setError('');
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message);

@@ -6,7 +6,7 @@ import RestContextProvider, {
 import CodeGenerationTab from './CodeGenerationTab';
 import { createMemoryRouter, RouterProvider } from 'react-router';
 
-vi.mock('@/pages/Variables/hooks/useUser', () => ({
+vi.mock('@/hooks/useUser', () => ({
   useUser: () => ({
     user: {
       uid: '123',

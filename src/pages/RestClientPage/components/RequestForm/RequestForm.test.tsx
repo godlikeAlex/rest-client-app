@@ -16,7 +16,7 @@ const mockData: RestClientState = {
   ],
 };
 
-vi.mock('@/pages/Variables/hooks/useUser', () => ({
+vi.mock('@/hooks/useUser', () => ({
   useUser: () => ({
     user: {
       uid: '123',

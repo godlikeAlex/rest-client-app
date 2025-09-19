@@ -2,7 +2,7 @@ import { Button, Center, Group, Stack, Text } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { NavBar } from '@/components';
 import { Link } from 'react-router';
-import { useUser } from '@/pages/Variables/hooks/useUser';
+import { useUser } from '@/hooks/useUser';
 
 export default function WelcomeBanner() {
   const { t } = useTranslation();

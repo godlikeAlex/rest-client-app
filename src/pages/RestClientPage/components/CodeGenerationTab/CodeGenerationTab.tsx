@@ -15,7 +15,7 @@ import useHeaders from '@/pages/RestClientPage/hooks/useHeaders';
 import useRestState from '@/pages/RestClientPage/hooks/useRestState';
 
 import type { Variable } from '@/types/variables';
-import { useUser } from '@/pages/Variables/hooks/useUser';
+import { useUser } from '@/hooks/useUser';
 
 type ComboboxSnippet = {
   label: string;
@@ -88,6 +88,7 @@ export default function CodeGenerationTab() {
     defaultCodeSnippetLanguage
   );
   const { user } = useUser();
+
   const generatedCode = useMemo(() => {
     if (!language) return;
 

@@ -4,7 +4,7 @@ import i18next from '@/app/i18n';
 import { Button, Group, Container, Image, Divider } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { signOutProfile } from '@/services/firebase.client';
-import { useUser } from '@/pages/Variables/hooks/useUser';
+import { useUser } from '@/hooks/useUser';
 
 export default function Header() {
   const { t } = useTranslation();

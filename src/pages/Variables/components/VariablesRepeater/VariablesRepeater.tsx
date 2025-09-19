@@ -2,7 +2,7 @@ import { Button, Center, Table } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import RepeaterRow from '@/pages/RestClientPage/components/HeadersRepeater/RepeaterRow';
 import useVariables from '@/pages/Variables/hooks/useVariables';
-import { useUser } from '@/pages/Variables/hooks/useUser';
+import { useUser } from '@/hooks/useUser';
 
 export default function VariablesRepeater() {
   const { user } = useUser();

@@ -1,5 +1,12 @@
 export default {
-  signUpTitle: 'Register account',
+  seo: {
+    title: 'Sign Up - Create Your Account',
+    description:
+      'Create an account to send API requests, save variables, and manage your workflow with our powerful REST client.',
+  },
+  signUpTitle: 'Sign Up',
+  signUpDescription: 'Join us by creating your account.',
+  hasAccountMessage: 'Already have an account?',
   labels: {
     name: 'Name',
     email: 'Email',

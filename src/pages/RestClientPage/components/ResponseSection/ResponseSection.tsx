@@ -1,10 +1,14 @@
 import { Box, Flex, SegmentedControl, Text, Title } from '@mantine/core';
 
-import { CodeEditor, CopyButton, HttpStatusBadge } from '@/components';
+import {
+  CodeEditor,
+  CopyButton,
+  FeedbackSection,
+  HttpStatusBadge,
+} from '@/components';
 import type { RequestResult } from '@/services/RequestService';
 import { useState } from 'react';
 import HeadersViewTable from './HeadersViewTable';
-import { FeedbackSection } from '../FeedbackSection';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

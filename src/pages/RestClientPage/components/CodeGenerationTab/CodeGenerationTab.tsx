@@ -90,7 +90,7 @@ export default function CodeGenerationTab() {
 
   const rootData = useRouteLoaderData('root');
   const variables: Variable[] = rootData?.user?.variables ?? [];
-
+  //const variables:Variable[] = [{key:'base_url', value:'base_url' , enabled: true}];
   const generatedCode = useMemo(() => {
     if (!language) return;
 
@@ -123,6 +123,8 @@ export default function CodeGenerationTab() {
           data={CODEGENERATION_LANGUAGES}
           onChange={handleSelectLanguage}
           value={language ? language.value : null}
+          allowDeselect={false}
+          placeholder="language"
         />
 
         <CopyButton content={generatedCode?.toString() ?? ''} />

@@ -11,8 +11,8 @@ import {
   RequestForm,
   Loader,
   ResponseSection,
-  FeedbackSection,
 } from './components';
+import { FeedbackSection } from '@/components/FeedbackSection';
 
 export default function RestClientPage() {
   const { t } = useTranslation();

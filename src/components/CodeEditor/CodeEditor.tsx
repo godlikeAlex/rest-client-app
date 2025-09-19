@@ -48,6 +48,8 @@ export default function CodeEditor({
 
   useEffect(() => {
     async function fetchLanguageSyntax() {
+      if (!window) return;
+
       const syntaxModule = await LANGUAGES[language];
       const syntax = await syntaxModule();
 

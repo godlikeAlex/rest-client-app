@@ -1,13 +1,13 @@
 import { Button, Center, Group, Stack, Text } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { NavBar } from '@/components';
-import { Link, useRouteLoaderData } from 'react-router';
+import { Link } from 'react-router';
+import { useUser } from '@/pages/Variables/hooks/useUser';
 
 export default function WelcomeBanner() {
   const { t } = useTranslation();
-  const rootData = useRouteLoaderData('root');
-  const user = rootData?.user;
-  const userName = user ? user.name : '';
+  const { user } = useUser();
+  const userName = user?.name;
   return (
     <Center py="xl" mih="750px">
       <Stack align="center" gap="md">

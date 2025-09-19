@@ -1,14 +1,14 @@
-import { Link, useRouteLoaderData } from 'react-router';
+import { Link } from 'react-router';
 import logo from '@/assets/logo.svg';
 import i18next from '@/app/i18n';
 import { Button, Group, Container, Image, Divider } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { signOutProfile } from '@/services/firebase.client';
+import { useUser } from '@/pages/Variables/hooks/useUser';
 
 export default function Header() {
   const { t } = useTranslation();
-  const rootData = useRouteLoaderData('root');
-  const user = rootData?.user;
+  const { user } = useUser();
 
   return (
     <>

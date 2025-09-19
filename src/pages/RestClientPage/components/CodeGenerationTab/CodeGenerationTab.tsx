@@ -13,9 +13,9 @@ import CodeGeneratorService, {
 import useRequestForm from '@/pages/RestClientPage/hooks/useRequestForm';
 import useHeaders from '@/pages/RestClientPage/hooks/useHeaders';
 import useRestState from '@/pages/RestClientPage/hooks/useRestState';
-import { useRouteLoaderData } from 'react-router';
 
 import type { Variable } from '@/types/variables';
+import { useUser } from '@/pages/Variables/hooks/useUser';
 
 type ComboboxSnippet = {
   label: string;
@@ -87,12 +87,11 @@ export default function CodeGenerationTab() {
   const [language, setLanguage] = useState<ComboboxSnippet | null>(
     defaultCodeSnippetLanguage
   );
-
-  const rootData = useRouteLoaderData('root');
-  const variables: Variable[] = rootData?.user?.variables ?? [];
-  //const variables:Variable[] = [{key:'base_url', value:'base_url' , enabled: true}];
+  const { user } = useUser();
   const generatedCode = useMemo(() => {
     if (!language) return;
+
+    const variables: Variable[] = user?.variables ?? [];
 
     return CodeGeneratorService.generateCodeSnippet(
       language.value,
@@ -104,7 +103,7 @@ export default function CodeGenerationTab() {
       },
       variables
     );
-  }, [language, url, method, headers, body, variables]);
+  }, [language, url, method, headers, body]);
 
   function handleSelectLanguage(_: string | null, option: ComboboxItem) {
     const targetLanguage = CODEGENERATION_LANGUAGES.find(

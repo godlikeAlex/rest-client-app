@@ -10,6 +10,7 @@ import { UrlTransformerService } from '@/services';
 import useFetcherRest from '@/pages/RestClientPage/hooks/useFetcherRest';
 import { useRouteLoaderData } from 'react-router';
 import VariablesService from '@/services/VariablesService';
+import type { Variable } from '@/types/variables';
 
 const METHODS = ['GET', 'POST', 'PUT', 'DELETE'];
 
@@ -24,7 +25,7 @@ export default function RequestForm() {
   const [error, setError] = useState(false);
 
   const rootData = useRouteLoaderData('root');
-  const variables = rootData.user.variables;
+  const variables: Variable[] = rootData?.user?.variables ?? [];
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -15,6 +15,8 @@ import useHeaders from '@/pages/RestClientPage/hooks/useHeaders';
 import useRestState from '@/pages/RestClientPage/hooks/useRestState';
 import { useRouteLoaderData } from 'react-router';
 
+import type { Variable } from '@/types/variables';
+
 type ComboboxSnippet = {
   label: string;
   value: SnippetGeneratorKey;
@@ -87,7 +89,7 @@ export default function CodeGenerationTab() {
   );
 
   const rootData = useRouteLoaderData('root');
-  const variables = rootData.user.variables;
+  const variables: Variable[] = rootData?.user?.variables ?? [];
 
   const generatedCode = useMemo(() => {
     if (!language) return;
@@ -102,7 +104,7 @@ export default function CodeGenerationTab() {
       },
       variables
     );
-  }, [language, url, method, headers, body]);
+  }, [language, url, method, headers, body, variables]);
 
   function handleSelectLanguage(_: string | null, option: ComboboxItem) {
     const targetLanguage = CODEGENERATION_LANGUAGES.find(

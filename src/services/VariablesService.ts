@@ -37,11 +37,13 @@ export default class VariablesService {
   }
 
   static replaceVariables(template: RequestData, variables: Variable[]) {
-    const replaceInString = (template?: string) =>
-      template?.replace(/{{\s*([\w.-]+)\s*}}/g, (_, varName) => {
+    const replaceInString = (template?: string): string => {
+      if (!template) return '';
+      return template.replace(/{{\s*([\w.-]+)\s*}}/g, (_, varName) => {
         const found = variables.find((v) => v.enabled && v.key === varName);
         return found ? found.value : `{{${varName}}}`;
-      }) ?? '';
+      });
+    };
 
     const replacedHeaders =
       template.headers?.map((obj) => ({

@@ -18,5 +18,5 @@ export default {
   signUp,
   validate,
   copyButton,
-  history
+  history,
 } satisfies Resource;

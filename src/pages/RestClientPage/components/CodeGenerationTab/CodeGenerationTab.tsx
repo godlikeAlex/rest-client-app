@@ -104,7 +104,7 @@ export default function CodeGenerationTab() {
       },
       variables
     );
-  }, [language, url, method, headers, body]);
+  }, [language, url, method, headers, body, user]);
 
   function handleSelectLanguage(_: string | null, option: ComboboxItem) {
     const targetLanguage = CODEGENERATION_LANGUAGES.find(

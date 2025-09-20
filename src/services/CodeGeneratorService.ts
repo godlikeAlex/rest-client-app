@@ -56,7 +56,7 @@ export default class CodeGeneratorService {
           mimeType: 'application/json',
           text: replacedBody,
         },
-        includeHeaders,
+        headers: includeHeaders,
       });
 
       const snippetGenerator = codeSnippetsMap[language];

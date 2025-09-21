@@ -16,6 +16,7 @@ import { signOutProfile } from '@/services/firebase.client';
 import { useUser } from '@/hooks/useUser';
 import { LocaleLink } from '../LocaleLink';
 import replaceLanguage from '@/utils/replace-language';
+import { useEffect, useState } from 'react';
 
 export default function Header() {
   const { t } = useTranslation();
@@ -25,9 +26,36 @@ export default function Header() {
 
   const { user } = useUser();
 
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   return (
-    <Box component="header">
-      <Container py={'sm'} size="lg">
+    <Box
+      component="header"
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000,
+        backgroundColor: 'white',
+        boxShadow: scrolled ? '0 4px 12px rgba(0, 0, 0, 0.1)' : 'none',
+        transition: 'box-shadow 0.3s ease',
+      }}
+    >
+      <Container
+        size="ml"
+        style={{
+          paddingTop: scrolled ? '0.5rem' : '2rem',
+          paddingBottom: scrolled ? '0.5rem' : '2rem',
+          transition: 'padding 0.3s ease',
+        }}
+      >
         <Flex justify="space-between">
           <LocaleLink to="/">
             <Image src={logo} w={120} alt="logo" />

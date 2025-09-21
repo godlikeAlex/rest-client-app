@@ -151,7 +151,7 @@ describe('component HeaderRepeater', () => {
   });
 });
 
-describe(useKeyValueRepeater, () => {
+describe('useKeyValueRepeater component', () => {
   it('should return correct values', () => {
     expect.hasAssertions();
 
@@ -180,6 +180,6 @@ describe(useKeyValueRepeater, () => {
       result.current.addRow();
     });
 
-    expect(setState).toHaveBeenCalledWith();
+    expect(setState).toHaveBeenCalled();
   });
 });

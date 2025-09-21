@@ -6,3 +6,4 @@ export * from './HttpStatusBadge';
 export * from './CopyButton';
 export * from './FeedbackSection';
 export * from './LocaleLink';
+export * from './KeyValueRepeater';

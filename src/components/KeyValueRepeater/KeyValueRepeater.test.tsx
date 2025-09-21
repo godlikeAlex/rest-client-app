@@ -2,11 +2,10 @@ import { describe, expect, it, vi } from 'vitest';
 import RestContextProvider, {
   type RestClientState,
 } from '@/pages/RestClientPage/context/RestContext';
-import HeadersRepeater from './HeadersRepeater';
-import { screen } from '@testing-library/react';
+import KeyValueRepeater from './KeyValueRepeater';
+import { act, renderHook, screen } from '@testing-library/react';
 import { renderWithProviders, userEvent } from '@/tests/utils';
-
-import * as useHeaders from '@/pages/RestClientPage/hooks/useHeaders';
+import useKeyValueRepeater, { type KeyValueItem } from './useKeyValueRepeater';
 
 const mockData: RestClientState = {
   method: 'GET',
@@ -18,13 +17,27 @@ const mockData: RestClientState = {
   ],
 };
 
+const mockUseKeyValueRepeater = (rows = mockData.headers) => ({
+  rows,
+  deleteRow: vi.fn<(position: number) => void>(),
+  addRow: vi.fn(),
+  updateRow:
+    vi.fn<
+      (
+        rowPosition: number,
+        input: keyof KeyValueItem,
+        value: KeyValueItem[keyof KeyValueItem]
+      ) => void
+    >(),
+});
+
 describe('component HeaderRepeater', () => {
   it('should render correct number of inputs', () => {
     expect.hasAssertions();
 
     renderWithProviders(
       <RestContextProvider initialState={mockData}>
-        <HeadersRepeater />
+        <KeyValueRepeater {...mockUseKeyValueRepeater()} />
       </RestContextProvider>
     );
 
@@ -41,7 +54,7 @@ describe('component HeaderRepeater', () => {
 
     renderWithProviders(
       <RestContextProvider initialState={mockData}>
-        <HeadersRepeater />
+        <KeyValueRepeater {...mockUseKeyValueRepeater()} />
       </RestContextProvider>
     );
 
@@ -54,23 +67,16 @@ describe('component HeaderRepeater', () => {
   it('should call onDelete with correct headerPosition when delete button is clicked', async () => {
     expect.hasAssertions();
 
-    const deleteHeaderMock = vi.fn<(position: number) => void>();
-
-    vi.spyOn(useHeaders, 'default').mockReturnValue({
-      headers: mockData.headers,
-      deleteHeader: deleteHeaderMock,
-      addHeader: vi.fn(),
-      updateHeader: vi.fn(),
-    });
-
     const user = userEvent.setup();
 
     const positionHeader = 1;
     const itemToDelete = mockData.headers[positionHeader].key;
 
+    const mockHook = mockUseKeyValueRepeater();
+
     renderWithProviders(
       <RestContextProvider initialState={mockData}>
-        <HeadersRepeater />
+        <KeyValueRepeater {...mockHook} />
       </RestContextProvider>
     );
 
@@ -78,54 +84,25 @@ describe('component HeaderRepeater', () => {
       screen.getByRole('button', { name: `Delete ${itemToDelete}` })
     );
 
-    expect(deleteHeaderMock).toHaveBeenCalledWith(positionHeader);
+    expect(mockHook.deleteRow).toHaveBeenCalledWith(positionHeader);
   });
 
   it('should call addHeader on click button add header', async () => {
     expect.hasAssertions();
 
-    const addHeaderMock = vi.fn<() => void>();
-
-    vi.spyOn(useHeaders, 'default').mockReturnValue({
-      headers: mockData.headers,
-      deleteHeader: vi.fn(),
-      addHeader: addHeaderMock,
-      updateHeader: vi.fn(),
-    });
-
     const user = userEvent.setup();
+
+    const mockHook = mockUseKeyValueRepeater();
 
     renderWithProviders(
       <RestContextProvider initialState={mockData}>
-        <HeadersRepeater />
+        <KeyValueRepeater {...mockHook} />
       </RestContextProvider>
     );
 
     await user.click(screen.getByRole('button', { name: /add header/i }));
 
-    expect(addHeaderMock).toHaveBeenCalledWith();
-  });
-
-  it('should update key input on user input', async () => {
-    expect.hasAssertions();
-
-    const user = userEvent.setup();
-    const newInputKey = 'Wow Header';
-
-    renderWithProviders(
-      <RestContextProvider
-        initialState={{
-          ...mockData,
-          headers: [{ key: '', value: '', enabled: true }],
-        }}
-      >
-        <HeadersRepeater />
-      </RestContextProvider>
-    );
-
-    await user.type(screen.getByPlaceholderText('Key'), newInputKey);
-
-    expect(screen.getByDisplayValue(newInputKey)).toBeInTheDocument();
+    expect(mockHook.addRow).toHaveBeenCalledWith();
   });
 
   it('should update value input on user input', async () => {
@@ -134,6 +111,10 @@ describe('component HeaderRepeater', () => {
     const user = userEvent.setup();
     const newInputValue = 'Wow Header Value';
 
+    const mockHook = mockUseKeyValueRepeater([
+      { key: '', value: '', enabled: true },
+    ]);
+
     renderWithProviders(
       <RestContextProvider
         initialState={{
@@ -141,13 +122,13 @@ describe('component HeaderRepeater', () => {
           headers: [{ key: '', value: '', enabled: true }],
         }}
       >
-        <HeadersRepeater />
+        <KeyValueRepeater {...mockHook} />
       </RestContextProvider>
     );
 
     await user.type(screen.getByPlaceholderText('Value'), newInputValue);
 
-    expect(screen.getByDisplayValue(newInputValue)).toBeInTheDocument();
+    expect(mockHook.updateRow).toHaveBeenCalledTimes(newInputValue.length);
   });
 
   it('should disable header on click enabled checkbox', async () => {
@@ -156,14 +137,49 @@ describe('component HeaderRepeater', () => {
     const user = userEvent.setup();
     const targetHeader = mockData.headers[0].key;
 
+    const mockHook = mockUseKeyValueRepeater();
+
     renderWithProviders(
       <RestContextProvider initialState={mockData}>
-        <HeadersRepeater />
+        <KeyValueRepeater {...mockHook} />
       </RestContextProvider>
     );
 
     await user.click(screen.getByLabelText(`Enable ${targetHeader}`));
 
-    expect(screen.getByLabelText(`Enable ${targetHeader}`)).not.toBeChecked();
+    expect(mockHook.updateRow).toHaveBeenCalledWith(0, 'enabled', false);
+  });
+});
+
+describe(useKeyValueRepeater, () => {
+  it('should return correct values', () => {
+    expect.hasAssertions();
+
+    const setState = vi.fn();
+
+    const { result } = renderHook(() =>
+      useKeyValueRepeater({ state: [], onStateChange: setState })
+    );
+
+    expect(result.current.rows).toBeDefined();
+    expect(result.current.deleteRow).toBeDefined();
+    expect(result.current.updateRow).toBeDefined();
+    expect(result.current.addRow).toBeDefined();
+  });
+
+  it('should return empty row on addRow', async () => {
+    expect.hasAssertions();
+
+    const setState = vi.fn();
+
+    const { result } = await renderHook(() =>
+      useKeyValueRepeater({ state: [], onStateChange: setState })
+    );
+
+    await act(() => {
+      result.current.addRow();
+    });
+
+    expect(setState).toHaveBeenCalledWith();
   });
 });

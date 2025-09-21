@@ -2,19 +2,28 @@ import { Button, Center, Table } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 
 import RepeaterRow from './RepeaterRow';
-import useHeaders from '@/pages/RestClientPage/hooks/useHeaders';
+import type useKeyValueRepeater from './useKeyValueRepeater';
 
-export default function HeadersRepeater() {
+interface Props extends ReturnType<typeof useKeyValueRepeater> {
+  canDisable?: boolean;
+}
+
+export default function KeyValueRepeater({
+  rows,
+  addRow,
+  updateRow,
+  deleteRow,
+  canDisable = true,
+}: Props) {
   const { t } = useTranslation();
 
-  const { headers, addHeader, updateHeader, deleteHeader } = useHeaders();
-
-  const headerRows = headers.map(({ key, value, enabled }, index) => (
+  const repeaterRows = rows.map(({ key, value, enabled }, index) => (
     <RepeaterRow
       key={index}
       inputs={{ key, value, enabled }}
-      onChange={(input, value) => updateHeader(index, input, value)}
-      onDelete={() => deleteHeader(index)}
+      onChange={(input, value) => updateRow(index, input, value)}
+      onDelete={() => deleteRow(index)}
+      canDisable={canDisable}
     />
   ));
 
@@ -30,11 +39,11 @@ export default function HeadersRepeater() {
           </Table.Tr>
         </Table.Thead>
 
-        <Table.Tbody>{headerRows}</Table.Tbody>
+        <Table.Tbody>{repeaterRows}</Table.Tbody>
       </Table>
 
       <Center>
-        <Button mt={'xs'} variant="light" onClick={() => addHeader()}>
+        <Button mt={'xs'} variant="light" onClick={() => addRow()}>
           {t('restClient.headersRepeater.addHeader')}
         </Button>
       </Center>

@@ -4,7 +4,6 @@ import { IconSend, IconWorld } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 
 import useRequestForm from '@/pages/RestClientPage/hooks/useRequestForm';
-import useHeaders from '@/pages/RestClientPage/hooks/useHeaders';
 import useRestState from '@/pages/RestClientPage/hooks/useRestState';
 import { UrlTransformerService } from '@/services';
 import useFetcherRest from '@/pages/RestClientPage/hooks/useFetcherRest';
@@ -19,8 +18,7 @@ export default function RequestForm() {
   const fetcher = useFetcherRest();
 
   const { url = '', method, setMethod, setUrl } = useRequestForm();
-  const { body } = useRestState();
-  const { headers } = useHeaders();
+  const { body, headers } = useRestState();
 
   const [error, setError] = useState(false);
 

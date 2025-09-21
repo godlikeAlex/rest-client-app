@@ -20,6 +20,7 @@ export default function WelcomeBanner() {
   const { user } = useUser();
   const userName = user ? user.name : '';
 
+
   return (
     <Center py="xl" mih="80vh">
       {user ? (

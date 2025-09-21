@@ -19,7 +19,7 @@ import {
 
 import type { Route } from './+types/root';
 import { requireAuth } from '@/utils/authCheck';
-import LocalStorageService from '@/services/LocalStorageService';
+import VariablesService from '@/services/VariablesService';
 
 const theme = createTheme({
   fontFamily: 'Open Sans, sans-serif',
@@ -37,7 +37,7 @@ export async function clientLoader({ serverLoader }: Route.ClientLoaderArgs) {
     return { user };
   }
 
-  const variables = LocalStorageService.getUsersVariables(user.uid);
+  const variables = VariablesService.getUsersVariables(user.uid);
   return {
     user: {
       ...user,

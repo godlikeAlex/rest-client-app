@@ -1,9 +1,23 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { renderWithProviders, screen, userEvent } from '@/tests/utils';
 import RestContextProvider, {
   type RestClientState,
 } from '../../context/RestContext';
 import CodeGenerationTab from './CodeGenerationTab';
+import { createMemoryRouter, RouterProvider } from 'react-router';
+
+vi.mock('@/hooks/useUser', () => ({
+  useUser: () => ({
+    user: {
+      uid: '123',
+      variables: [{ key: 'example', value: '123', enabled: true }],
+    },
+  }),
+}));
+
+vi.mock('@codemirror/lang-json', () => ({
+  json: () => () => {},
+}));
 
 const mockData: RestClientState = {
   method: 'GET',
@@ -15,15 +29,36 @@ const mockData: RestClientState = {
   ],
 };
 
+const createRouter = (propsData?: Partial<RestClientState>) => {
+  return createMemoryRouter(
+    [
+      {
+        path: '/',
+        element: (
+          <RestContextProvider
+            initialState={{
+              ...mockData,
+              ...propsData,
+            }}
+          >
+            <CodeGenerationTab />
+          </RestContextProvider>
+        ),
+      },
+    ],
+    {
+      initialEntries: ['/'],
+    }
+  );
+};
+
 describe('component CodeGenerationTab', () => {
   it('should show error alert if there is enough data to generate', () => {
     expect.hasAssertions();
 
-    renderWithProviders(
-      <RestContextProvider initialState={mockData}>
-        <CodeGenerationTab />
-      </RestContextProvider>
-    );
+    const router = createRouter();
+
+    renderWithProviders(<RouterProvider router={router} />);
 
     expect(screen.getByRole('alert')).toBeInTheDocument();
   });
@@ -31,13 +66,9 @@ describe('component CodeGenerationTab', () => {
   it('should show code if there is enough data to generate', () => {
     expect.hasAssertions();
 
-    renderWithProviders(
-      <RestContextProvider
-        initialState={{ ...mockData, url: 'http://localhost:80' }}
-      >
-        <CodeGenerationTab />
-      </RestContextProvider>
-    );
+    const router = createRouter({ url: 'localhost:8000' });
+
+    renderWithProviders(<RouterProvider router={router} />);
 
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
   });
@@ -46,14 +77,9 @@ describe('component CodeGenerationTab', () => {
     expect.hasAssertions();
 
     const user = userEvent.setup();
+    const router = createRouter({ url: 'http://localhost:80' });
 
-    renderWithProviders(
-      <RestContextProvider
-        initialState={{ ...mockData, url: 'http://localhost:80' }}
-      >
-        <CodeGenerationTab />
-      </RestContextProvider>
-    );
+    renderWithProviders(<RouterProvider router={router} />);
 
     await user.click(screen.getByPlaceholderText('language'));
     await user.click(screen.getByText('php'));

@@ -55,7 +55,7 @@ export default class RequestService {
         Accept: 'application/json',
         ...headers,
       },
-      body: body ? JSON.stringify(JSON.parse(body)) : undefined,
+      body: body ? JSON.stringify(this.tryParseBody(body)) : undefined,
     };
 
     const start = Date.now();
@@ -122,6 +122,14 @@ export default class RequestService {
         parser: 'html',
         plugins: [parserHtml],
       });
+    }
+  }
+
+  private static tryParseBody(body: string): Record<string, unknown> | string {
+    try {
+      return JSON.parse(body);
+    } catch {
+      return body;
     }
   }
 }

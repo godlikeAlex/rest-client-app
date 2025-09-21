@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import { Box, Container, Divider, ScrollArea, Tabs } from '@mantine/core';
 import { IconList, IconJson, IconCode } from '@tabler/icons-react';
 
-import { HeadersRepeater } from './components/HeadersRepeater';
 import useFetcherRest from '@/pages/RestClientPage/hooks/useFetcherRest';
 
 import {
@@ -11,6 +10,7 @@ import {
   RequestForm,
   Loader,
   ResponseSection,
+  HeadersTab,
 } from './components';
 import { FeedbackSection } from '@/components/FeedbackSection';
 
@@ -40,7 +40,7 @@ export default function RestClientPage() {
         </Tabs.List>
         <ScrollArea h={250} scrollbarSize={5} offsetScrollbars={'y'} pr={5}>
           <Tabs.Panel value="headers" py="xs">
-            <HeadersRepeater />
+            <HeadersTab />
           </Tabs.Panel>
           <Tabs.Panel value="body" py="xs">
             <BodyTab />

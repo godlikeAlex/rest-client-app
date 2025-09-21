@@ -8,16 +8,16 @@ import {
 export default [
   index('routes/index.tsx'),
   route(':locale', 'routes/locale.tsx', [
-    layout('routes/mainLayout.tsx', [
-      index('routes/homePage.tsx'),
+    layout('layouts/main-layout.tsx', [
+      index('routes/home-page.tsx'),
       route('rest-client/:method?/:url?/:body?', 'routes/rest-client.tsx'),
       route('history', 'routes/history.tsx'),
+      route('variables', 'routes/variables.tsx'),
       layout('layouts/auth-layout.tsx', [
         route('sign-in', 'routes/sign-in.tsx'),
         route('sign-up', 'routes/sign-up.tsx'),
         route('logout', 'routes/logout.ts'),
       ]),
-      route('variables', 'routes/variables.tsx'),
     ]),
   ]),
 ] satisfies RouteConfig;

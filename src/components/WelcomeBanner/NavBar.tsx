@@ -5,18 +5,16 @@ import { Link } from 'react-router';
 export default function NavBar() {
   const { t } = useTranslation();
   return (
-    <>
-      <Group gap="xl">
-        <Button variant="subtle" component={Link} to={'rest-client'} px={5}>
-          {t('home.restButton')}
-        </Button>
-        <Button variant="subtle" component={Link} to={'history'} px={5}>
-          {t('home.historyButton')}
-        </Button>
-        <Button variant="subtle" component={Link} to={'variables'} px={5}>
-          {t('home.variablesButton')}
-        </Button>
-      </Group>
-    </>
+    <Group gap="xl">
+      <Button variant="light" component={Link} to={'rest-client'}>
+        {t('home.restButton')}
+      </Button>
+      <Button variant="light" component={Link} to={'variables'} color="blue">
+        {t('home.variablesButton')}
+      </Button>
+      <Button variant="light" component={Link} to={'history'} color="yellow">
+        {t('home.historyButton')}
+      </Button>
+    </Group>
   );
 }

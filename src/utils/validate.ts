@@ -11,7 +11,7 @@ export interface AuthorizationValues {
   confirmPassword?: string;
 }
 
-export function validatePassword(value: string) {
+export function validatePassword(value: string, t: (key: string) => string) {
   if (value.length < 8) {
     return t('validate.validatePasswordLength');
   }

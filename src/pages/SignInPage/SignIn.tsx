@@ -30,7 +30,7 @@ export default function SignIn() {
     validateInputOnChange: true,
     validate: {
       email: (value: string) => isEmail(t('validate.validateEmail'))(value),
-      password: (value: string) => validatePassword(value),
+      password: (value: string) => validatePassword(value, t),
     },
   });
 
@@ -47,6 +47,7 @@ export default function SignIn() {
       const formData = new FormData();
       formData.append('idToken', idToken);
       await fetcher.submit(formData, { method: 'post' });
+      setError('');
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(t('signIn.error'));

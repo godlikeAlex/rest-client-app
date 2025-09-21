@@ -1,11 +1,10 @@
-import type { Route } from './+types/mainLayout';
-import i18next from '@/app/i18next.server';
-import { data, Outlet } from 'react-router';
-import { Footer, Header } from '@/components';
+import { WelcomeBanner } from '@/components';
+import type { Route } from './+types/home-page';
+import { data } from 'react-router';
+import i18next from '../i18next.server';
 
 export async function loader({ request }: Route.LoaderArgs) {
   const t = await i18next.getFixedT(request);
-
   const title = t('home.seo.title');
   const description = t('home.seo.description');
 
@@ -19,12 +18,6 @@ export function meta({ loaderData }: Route.MetaArgs) {
   ];
 }
 
-export default function MainLayout() {
-  return (
-    <main>
-      <Header />
-      <Outlet />
-      <Footer />
-    </main>
-  );
+export default function HomePage() {
+  return <WelcomeBanner />;
 }

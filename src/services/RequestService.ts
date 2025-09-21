@@ -34,14 +34,6 @@ interface SendRequestParams {
 export type RequestResult = RequestSuccess | RequestError;
 
 export default class RequestService {
-  static tryParseBody(body: string): Record<string, unknown> | string {
-    try {
-      return JSON.parse(body);
-    } catch {
-      return body;
-    }
-  }
-
   static async sendRequest({
     method = 'GET',
     body,
@@ -130,6 +122,14 @@ export default class RequestService {
         parser: 'html',
         plugins: [parserHtml],
       });
+    }
+  }
+
+  private static tryParseBody(body: string): Record<string, unknown> | string {
+    try {
+      return JSON.parse(body);
+    } catch {
+      return body;
     }
   }
 }

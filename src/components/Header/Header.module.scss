@@ -1,4 +1,4 @@
-.header{
+.header {
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -11,10 +11,10 @@
 }
 .container {
   transition: padding 0.3s ease;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
 }
 .containerScrolled {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
 }

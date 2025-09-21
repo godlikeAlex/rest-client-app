@@ -38,13 +38,14 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
   return (
     <Box
       component="header"
       className={`${classes.header} ${scrolled ? classes.headerScrolled : ''}`}
     >
       <Container
-        size="ml"
+        size="xl"
         className={`${classes.container} ${scrolled ? classes.containerScrolled : ''}`}
       >
         <Flex justify="space-between">
@@ -54,7 +55,7 @@ export default function Header() {
 
           <Flex align="center">
             <Group gap={10}>
-              <Button variant="subtle" component={Link} to={'/'}>
+              <Button variant="subtle" component={LocaleLink} to="/">
                 {t('home.buttonHome')}
               </Button>
               {user ? (

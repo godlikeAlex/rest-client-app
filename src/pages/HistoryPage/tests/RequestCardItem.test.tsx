@@ -17,6 +17,7 @@ describe('requestCardItem component', () => {
     error: null,
     requestSize: 50,
     responseSize: 100,
+    timestamp: '12.05.2025',
     requestData: {
       headers: [{ key: 'Authorization', value: 'Bearer token', enabled: true }],
       body: '{"foo":"bar"}',
@@ -30,6 +31,7 @@ describe('requestCardItem component', () => {
     method: 'GET',
     duration: 123,
     time: Date.now(),
+    timestamp: '12.05.2025',
     status: 400,
     error: 'Invalid token',
     requestSize: 50,

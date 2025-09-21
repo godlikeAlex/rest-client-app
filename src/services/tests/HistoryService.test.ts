@@ -9,6 +9,7 @@ const requestData = {
   duration: 1,
   requestSize: 11,
   responseSize: 10,
+  timestamp: '',
   status: 200,
   error: null,
   requestData: {

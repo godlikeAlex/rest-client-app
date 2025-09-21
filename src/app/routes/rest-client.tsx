@@ -27,7 +27,7 @@ export async function action({ request, params }: Route.ActionArgs) {
     clientHeaders: headers,
   });
 
-  const data: Omit<RequestData, 'id'> = {
+  const data: Omit<RequestData, 'id' | 'timestamp'> = {
     url,
     method: params.method ?? 'GET',
     status: response.error ? 0 : response.status,

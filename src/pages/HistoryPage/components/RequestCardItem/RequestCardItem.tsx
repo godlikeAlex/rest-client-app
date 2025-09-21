@@ -1,3 +1,4 @@
+import { HttpStatusBadge } from '@/components';
 import type { RequestData } from '@/services/HistoryService';
 import UrlTransformerService from '@/services/UrlTransformerService';
 import {
@@ -15,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
 type Props = {
-  request: RequestData;
+  request: RequestData & { timestamp: string };
   language: string;
 };
 
@@ -60,14 +61,13 @@ export default function RequestCardItem({ request, language }: Props) {
       <AccordionPanel>
         <Stack gap="xs">
           <Text size="sm">
-            {t('history.status')} {request.status}
+            {t('history.status')} <HttpStatusBadge status={request.status} />
           </Text>
           <Text size="sm">
             {t('history.duration')} {request.duration} {t('history.ms')}
           </Text>
           <Text size="sm">
-            {t('history.timestamp')}{' '}
-            {new Date(request.time).toLocaleDateString()}
+            {t('history.timestamp')} {request.timestamp}
           </Text>
           <Text size="sm">
             {t('history.requestSize')} {request.requestSize}{' '}

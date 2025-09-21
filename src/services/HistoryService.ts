@@ -7,6 +7,7 @@ export interface RequestData extends RequestBase {
   method: string;
   duration: number;
   error: string | null;
+  timestamp: string;
   requestData: {
     headers: { key: string; value: string; enabled: boolean }[];
     body: string;
@@ -15,7 +16,10 @@ export interface RequestData extends RequestBase {
 }
 
 export default class HistoryService {
-  static async saveUserHistory(userId: string, data: Omit<RequestData, 'id'>) {
+  static async saveUserHistory(
+    userId: string,
+    data: Omit<RequestData, 'id' | 'timestamp'>
+  ) {
     const userDoc = serverDb
       .collection('users')
       .doc(userId)
@@ -43,6 +47,9 @@ export default class HistoryService {
       });
     });
 
-    return data;
+    return data.map((request) => ({
+      ...request,
+      timestamp: new Date(request.time).toLocaleString(),
+    }));
   }
 }

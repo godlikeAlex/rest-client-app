@@ -13,6 +13,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   const description = t('history.seo.description');
 
   const history = await HistoryService.getUserHistory(user?.uid);
+
   return {
     history,
     meta: {

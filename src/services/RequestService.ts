@@ -35,15 +35,13 @@ export type RequestResult = RequestSuccess | RequestError;
 
 export default class RequestService {
   static tryParseBody(body: string): Record<string, unknown> | string {
-    const fixed = body.replace(/:\s*([^"'\s][^,}\n\r]*)/g, (_match, value) => {
-      return `: "${value.trim()}"`;
-    });
     try {
-      return JSON.parse(fixed);
+      return JSON.parse(body);
     } catch {
       return body;
     }
   }
+
   static async sendRequest({
     method = 'GET',
     body,
@@ -67,7 +65,7 @@ export default class RequestService {
       },
       body: body ? JSON.stringify(this.tryParseBody(body)) : undefined,
     };
-    console.log(options.body);
+
     const start = Date.now();
     const requestTimestamp = new Date().toISOString();
 

@@ -18,7 +18,7 @@ import helloImage from '@/assets/hello.webp';
 export default function WelcomeBanner() {
   const { t } = useTranslation();
   const { user } = useUser();
-  const userName = user ? user.displayName || user.name : '';
+  const userName = user ? user.name : '';
 
   return (
     <Center py="xl" mih="80vh">

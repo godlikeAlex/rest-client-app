@@ -3,6 +3,7 @@ export default {
   buttonSignUp: 'Зарегистрироваться',
   buttonSignIn: 'Войти',
   buttonSignOut: 'Выйти',
+  buttonHome: 'На главную',
   greetings: 'Добро пожаловать',
   back: 'С возвращением',
   restButton: 'REST Client',

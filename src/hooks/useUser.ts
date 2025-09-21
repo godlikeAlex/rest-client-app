@@ -8,5 +8,5 @@ type User = {
 };
 
 export const useUser = () => {
-  return useRouteLoaderData('root') as { user: User };
+  return useRouteLoaderData('root') as { user: User | null };
 };

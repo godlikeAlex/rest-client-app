@@ -20,4 +20,8 @@ export default {
     confirmPassword: 'Please confirm password',
   },
   button: 'Sign Up',
+  successTitle: 'Welcome!',
+  successMessage: 'Your account has been successfully created',
+  errorTitle: 'Registration failed',
+  errorMessage: 'Something went wrong. Please try again',
 };

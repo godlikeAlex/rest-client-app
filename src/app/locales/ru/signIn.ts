@@ -17,4 +17,8 @@ export default {
   },
   button: 'Войти',
   error: 'Неверный логин или пароль',
+  successTitle: 'Добро пожаловать!',
+  successMessage: 'Вы успешно авторизовались!',
+  errorTitle: 'Не удалось войти.',
+  errorMessage: 'Неверные учётные данные или ошибка сети',
 } satisfies typeof import('@/app/locales/en/signIn').default;

@@ -16,6 +16,15 @@ const mockData: RestClientState = {
   ],
 };
 
+vi.mock('@/hooks/useUser', () => ({
+  useUser: () => ({
+    user: {
+      uid: '123',
+      variables: [{ key: 'example', value: '123' }],
+    },
+  }),
+}));
+
 const createRouter = (props?: Partial<RestClientState>) =>
   createMemoryRouter(
     [

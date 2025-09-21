@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams, useRouteLoaderData } from 'react-router';
+import { Link, useLocation, useParams } from 'react-router';
 import logo from '@/assets/logo.webp';
 import {
   Button,
@@ -13,6 +13,7 @@ import {
 } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { signOutProfile } from '@/services/firebase.client';
+import { useUser } from '@/hooks/useUser';
 import { LocaleLink } from '../LocaleLink';
 import replaceLanguage from '@/utils/replace-language';
 
@@ -22,8 +23,7 @@ export default function Header() {
   const { locale } = useParams<'locale'>();
   const { pathname } = useLocation();
 
-  const rootData = useRouteLoaderData('root');
-  const user = rootData?.user;
+  const { user } = useUser();
 
   return (
     <Box component="header">

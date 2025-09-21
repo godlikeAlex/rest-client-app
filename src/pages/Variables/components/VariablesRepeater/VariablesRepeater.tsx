@@ -2,11 +2,11 @@ import { Button, Center, Table } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import RepeaterRow from '@/pages/RestClientPage/components/HeadersRepeater/RepeaterRow';
 import useVariables from '@/pages/Variables/hooks/useVariables';
-import { useRouteLoaderData } from 'react-router';
+import { useUser } from '@/hooks/useUser';
 
 export default function VariablesRepeater() {
-  const rootData = useRouteLoaderData('root');
-  const userId = rootData?.user.uid;
+  const { user } = useUser();
+  const userId = user ? user.uid : '';
 
   const { t } = useTranslation();
 

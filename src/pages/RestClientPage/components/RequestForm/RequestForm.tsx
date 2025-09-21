@@ -8,6 +8,9 @@ import useHeaders from '@/pages/RestClientPage/hooks/useHeaders';
 import useRestState from '@/pages/RestClientPage/hooks/useRestState';
 import { UrlTransformerService } from '@/services';
 import useFetcherRest from '@/pages/RestClientPage/hooks/useFetcherRest';
+import VariablesService from '@/services/VariablesService';
+import type { Variable } from '@/types/variables';
+import { useUser } from '@/hooks/useUser';
 
 const METHODS = ['GET', 'POST', 'PUT', 'DELETE'];
 
@@ -21,6 +24,9 @@ export default function RequestForm() {
 
   const [error, setError] = useState(false);
 
+  const { user } = useUser();
+  const variables: Variable[] = user?.variables ?? [];
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -29,7 +35,17 @@ export default function RequestForm() {
       return;
     }
 
-    const encodedUrl = UrlTransformerService.encode({
+    const replaced = VariablesService.replaceVariables(
+      { url, body, headers },
+      variables
+    );
+
+    const encodedForServer = UrlTransformerService.encode({
+      ...replaced,
+      method,
+    });
+
+    const encodedForHistory = UrlTransformerService.encode({
       body,
       method,
       headers,
@@ -38,12 +54,13 @@ export default function RequestForm() {
 
     setError(false);
 
-    const actionUrl = `/${i18n.language}/rest-client/${encodedUrl}`;
+    const actionUrl = `/${i18n.language}/rest-client/${encodedForHistory}`;
+    const serverUrl = `/${i18n.language}/rest-client/${encodedForServer}`;
 
     window.history.replaceState(null, '', actionUrl);
 
     fetcher.submit(e.currentTarget, {
-      action: actionUrl,
+      action: serverUrl,
     });
   };
 

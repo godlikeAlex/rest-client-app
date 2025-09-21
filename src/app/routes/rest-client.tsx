@@ -5,9 +5,10 @@ import RestContextProvider, {
 import i18next from '@/app/i18next.server';
 
 import type { Route } from './+types/rest-client';
-import { data } from 'react-router';
+import { data, useRevalidator } from 'react-router';
 import { requireAuth } from '@/utils/authCheck';
 import { RequestService, UrlTransformerService } from '@/services';
+import { useEffect } from 'react';
 import HistoryService, { type RequestData } from '@/services/HistoryService';
 
 export async function action({ request, params }: Route.ActionArgs) {
@@ -81,6 +82,19 @@ export function meta({ loaderData }: Route.MetaArgs) {
 }
 
 export default function RestClient({ loaderData }: Route.ComponentProps) {
+  const revalidator = useRevalidator();
+
+  useEffect(() => {
+    revalidator.revalidate();
+
+    const handleFocus = () => {
+      revalidator.revalidate();
+    };
+
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
+  }, []);
+
   return (
     <RestContextProvider initialState={loaderData.initialData}>
       <RestClientPage />

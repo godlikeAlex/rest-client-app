@@ -6,6 +6,8 @@ import CodeEditor from './CodeEditor';
 
 const mockOnChange = vi.fn<(value: string) => void>();
 
+vi.mock('@/components/CodeEditor/languages');
+
 describe('component CodeEditor', () => {
   it('should render correct value', () => {
     expect.hasAssertions();

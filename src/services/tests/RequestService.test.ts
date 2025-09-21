@@ -61,8 +61,6 @@ describe('request service', () => {
       clientHeaders: [],
     })) as RequestError;
 
-    console.log(result.error === true ? result.message : false);
-
     expect(result.error).toBe(true);
     expect(result.message).contains('Poor Connection');
   });

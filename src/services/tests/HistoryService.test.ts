@@ -9,7 +9,7 @@ const requestData = {
   duration: 1,
   requestSize: 11,
   responseSize: 10,
-  timestamp: '',
+  timestamp: 123213,
   status: 200,
   error: null,
   requestData: {
@@ -23,7 +23,14 @@ const { setMock, collectionMock, docMock, getMock } = vi.hoisted(() => {
   const setMock = vi.fn();
   const getMock = vi.fn(() => ({
     forEach: (cb: (doc: { id: string; data: () => RequestData }) => void) => {
-      cb({ id: 'req1', data: () => ({ ...requestData, id: 'req1' }) });
+      cb({
+        id: 'req1',
+        data: () => ({
+          ...requestData,
+          timestamp: '1/1/1970, 6:00:00 AM',
+          id: 'req1',
+        }),
+      });
     },
   }));
 
@@ -79,6 +86,8 @@ describe(HistoryService, () => {
 
     expect(collectionMock).toHaveBeenCalledWith('users');
     expect(getMock).toHaveBeenCalledWith();
-    expect(result).toEqual([{ ...requestData, id: 'req1' }]);
+    expect(result).toEqual([
+      { ...requestData, timestamp: '1/1/1970, 6:00:00 AM', id: 'req1' },
+    ]);
   });
 });

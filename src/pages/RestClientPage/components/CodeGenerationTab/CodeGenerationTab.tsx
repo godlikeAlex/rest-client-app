@@ -11,7 +11,6 @@ import CodeGeneratorService, {
   type SnippetGeneratorKey,
 } from '@/services/CodeGeneratorService';
 import useRequestForm from '@/pages/RestClientPage/hooks/useRequestForm';
-import useHeaders from '@/pages/RestClientPage/hooks/useHeaders';
 import useRestState from '@/pages/RestClientPage/hooks/useRestState';
 
 import type { Variable } from '@/types/variables';
@@ -80,9 +79,8 @@ const defaultCodeSnippetLanguage = CODEGENERATION_LANGUAGES[1];
 
 export default function CodeGenerationTab() {
   const { t } = useTranslation();
-  const { body } = useRestState();
+  const { body, headers } = useRestState();
   const { url, method } = useRequestForm();
-  const { headers } = useHeaders();
 
   const [language, setLanguage] = useState<ComboboxSnippet | null>(
     defaultCodeSnippetLanguage

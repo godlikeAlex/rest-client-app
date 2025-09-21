@@ -10,9 +10,15 @@ interface Props {
   ) => void;
   onDelete: () => void;
   inputs: HeaderClient;
+  canDisable: boolean;
 }
 
-export default function RepeaterRow({ onChange, onDelete, inputs }: Props) {
+export default function RepeaterRow({
+  onChange,
+  onDelete,
+  inputs,
+  canDisable,
+}: Props) {
   const { t } = useTranslation();
 
   return (
@@ -20,12 +26,14 @@ export default function RepeaterRow({ onChange, onDelete, inputs }: Props) {
       bg={!inputs.enabled ? 'var(--mantine-color-gray-light)' : undefined}
     >
       <Table.Td>
-        <Checkbox
-          size="xs"
-          aria-label={`Enable ${inputs.key}`}
-          checked={inputs.enabled}
-          onChange={(e) => onChange('enabled', e.target.checked)}
-        />
+        {canDisable && (
+          <Checkbox
+            size="xs"
+            aria-label={`Enable ${inputs.key}`}
+            checked={inputs.enabled}
+            onChange={(e) => onChange('enabled', e.target.checked)}
+          />
+        )}
       </Table.Td>
       <Table.Td>
         <Input

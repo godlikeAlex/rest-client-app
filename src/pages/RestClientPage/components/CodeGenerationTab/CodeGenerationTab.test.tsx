@@ -1,9 +1,13 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { renderWithProviders, screen, userEvent } from '@/tests/utils';
 import RestContextProvider, {
   type RestClientState,
 } from '../../context/RestContext';
 import CodeGenerationTab from './CodeGenerationTab';
+
+vi.mock('@codemirror/lang-json', () => ({
+  json: () => () => {},
+}));
 
 const mockData: RestClientState = {
   method: 'GET',

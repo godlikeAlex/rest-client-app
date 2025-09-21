@@ -54,7 +54,7 @@ describe('authCheck utils', () => {
     const request = mockRequest('http:/localhost/en/protected');
 
     await expect(requireAuth(request)).rejects.toThrow();
-    expect(redirect).toHaveBeenCalledWith('/en/sign-in', {
+    expect(redirect).toHaveBeenCalledWith('/en', {
       headers: { 'Set-Cookie': 'mock-cookie' },
     });
   });
@@ -78,7 +78,7 @@ describe('authCheck utils', () => {
     const request = mockRequest('http:/localhost/en/protected');
 
     await expect(requireAuth(request)).rejects.toEqual(
-      redirect('/en/sign-in', {
+      redirect('/en', {
         headers: { 'Set-Cookie': 'mock-cookie' },
       })
     );

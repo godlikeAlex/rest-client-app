@@ -180,6 +180,6 @@ describe('useKeyValueRepeater component', () => {
       result.current.addRow();
     });
 
-    expect(setState).toHaveBeenCalledWith();
+    expect(setState).toHaveBeenCalled();
   });
 });

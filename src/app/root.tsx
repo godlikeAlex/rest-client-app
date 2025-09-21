@@ -1,4 +1,6 @@
 import '@mantine/core/styles.css';
+import '@mantine/nprogress/styles.css';
+import '@mantine/notifications/styles.css';
 
 import {
   isRouteErrorResponse,
@@ -7,7 +9,9 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useNavigation,
 } from 'react-router';
+import { nprogress, NavigationProgress } from '@mantine/nprogress';
 
 import { useTranslation } from 'react-i18next';
 import {
@@ -20,6 +24,7 @@ import {
 import type { Route } from './+types/root';
 import { requireAuth } from '@/utils/authCheck';
 import VariablesService from '@/services/VariablesService';
+import { useEffect } from 'react';
 
 const theme = createTheme({
   fontFamily: 'Open Sans, sans-serif',
@@ -49,6 +54,13 @@ export async function clientLoader({ serverLoader }: Route.ClientLoaderArgs) {
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { i18n } = useTranslation();
+  const navigation = useNavigation();
+  const isNavigating = Boolean(navigation.location);
+
+  useEffect(() => {
+    if (isNavigating) nprogress.start();
+    else nprogress.complete();
+  }, [isNavigating]);
 
   return (
     <html lang={i18n.language} {...mantineHtmlProps}>
@@ -62,7 +74,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <MantineProvider theme={theme}>
+          <NavigationProgress />
+          {children}
+        </MantineProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

@@ -1,4 +1,4 @@
-import CodeMirror, { EditorView } from '@uiw/react-codemirror';
+import CodeMirror, { EditorView, type Extension } from '@uiw/react-codemirror';
 
 import { type LanguageSupport } from '@codemirror/language';
 
@@ -12,32 +12,53 @@ interface Props {
   onChange?: (value: string) => void;
   language?: CodeEditorHighlightLanguage;
   readOnly?: boolean;
+  type?: 'code' | 'area';
 }
-
-const codeEditorTheme = EditorView.theme({
-  '&.cm-focused': {
-    outline: 'none',
-  },
-  '.cm-gutters': {
-    backgroundColor: '#fafafaff',
-    color: 'dark',
-    border: 'none',
-  },
-});
 
 export default function CodeEditor({
   value,
   onChange,
   language = 'json',
   readOnly = false,
+  type = 'code',
 }: Props) {
   const [languageSyntax, setLanguageSyntax] = useState<LanguageSupport | null>(
     null
   );
 
+  const [codeEditorTheme, setCodeEditorTheme] = useState<Extension>(() => {
+    return EditorView.theme({
+      '&.cm-focused': {
+        outline: 'none',
+      },
+      '.cm-gutters': {
+        backgroundColor: '#fafafaff',
+        color: 'dark',
+        opacity: 1,
+        border: 'none',
+      },
+    });
+  });
+
   const extensions = languageSyntax
     ? [languageSyntax, codeEditorTheme]
     : [codeEditorTheme];
+
+  useEffect(() => {
+    const codeEditorTheme = EditorView.theme({
+      '&.cm-focused': {
+        outline: 'none',
+      },
+      '.cm-gutters': {
+        backgroundColor: '#fafafaff',
+        color: 'dark',
+        opacity: type === 'code' ? 1 : 0,
+        border: 'none',
+      },
+    });
+
+    setCodeEditorTheme(codeEditorTheme);
+  }, [type]);
 
   useEffect(() => {
     async function fetchLanguageSyntax() {
@@ -57,7 +78,6 @@ export default function CodeEditor({
   return (
     <CodeMirror
       value={value}
-      // theme={githubLight}
       height="200px"
       extensions={extensions}
       onChange={onChange}

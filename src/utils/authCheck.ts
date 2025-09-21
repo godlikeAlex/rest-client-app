@@ -16,7 +16,7 @@ export async function requireAuth(
 
   if (!userId) {
     if (options.redirect) {
-      throw redirect(`/${language}/sign-in`, {
+      throw redirect(`/${language}`, {
         headers: {
           'Set-Cookie': await session.serialize('', {
             expires: new Date(0),
@@ -32,7 +32,7 @@ export async function requireAuth(
   } catch (error) {
     console.error('Invalid session cookie:', error);
     if (options.redirect) {
-      throw redirect(`/${language}/sign-in`, {
+      throw redirect(`/${language}`, {
         headers: {
           'Set-Cookie': await session.serialize('', { expires: new Date(0) }),
         },

@@ -12,11 +12,12 @@ import {
   Alert,
 } from '@mantine/core';
 import { isEmail, useForm } from '@mantine/form';
-import { IconAlertCircle } from '@tabler/icons-react';
+import { IconAlertCircle, IconCheck } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFetcher } from 'react-router';
 import { LocaleLink } from '@/components';
+import { notifications } from '@mantine/notifications';
 
 export default function SignIn() {
   const fetcher = useFetcher();
@@ -47,8 +48,20 @@ export default function SignIn() {
       const formData = new FormData();
       formData.append('idToken', idToken);
       await fetcher.submit(formData, { method: 'post' });
+      notifications.show({
+        title: t('signIn.successTitle'),
+        message: t('signIn.successMessage'),
+        color: 'green',
+        icon: <IconCheck />,
+      });
       setError('');
     } catch (error: unknown) {
+      notifications.show({
+        title: t('signIn.errorTitle'),
+        message: t('signIn.errorMessage'),
+        color: 'red',
+        icon: <IconAlertCircle />,
+      });
       if (error instanceof Error) {
         setError(t('signIn.error'));
       }

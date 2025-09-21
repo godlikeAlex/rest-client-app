@@ -19,6 +19,10 @@ vi.mock('@codemirror/lang-json', () => ({
   json: () => () => {},
 }));
 
+vi.mock('@codemirror/lang-json', () => ({
+  json: () => () => {},
+}));
+
 const mockData: RestClientState = {
   method: 'GET',
   url: '',

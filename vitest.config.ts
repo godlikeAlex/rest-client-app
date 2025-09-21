@@ -6,6 +6,7 @@ export default mergeConfig(
   defineConfig({
     test: {
       environment: 'jsdom',
+      silent: true,
       setupFiles: './src/tests/setup.ts',
       coverage: {
         provider: 'v8',
@@ -21,6 +22,8 @@ export default mergeConfig(
           './src/routes.ts',
           './src/tests/setupTests.{js,ts}',
           './src/**/*.d.ts',
+          './src/app/entry.client.tsx',
+          './src/app/entry.server.tsx',
         ],
       },
       globals: true,

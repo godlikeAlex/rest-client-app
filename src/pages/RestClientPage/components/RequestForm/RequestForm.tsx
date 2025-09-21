@@ -11,7 +11,7 @@ import VariablesService from '@/services/VariablesService';
 import type { Variable } from '@/types/variables';
 import { useUser } from '@/hooks/useUser';
 
-const METHODS = ['GET', 'POST', 'PUT', 'DELETE'];
+const METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'];
 
 export default function RequestForm() {
   const { t, i18n } = useTranslation();

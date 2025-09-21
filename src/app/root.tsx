@@ -25,6 +25,7 @@ import type { Route } from './+types/root';
 import { requireAuth } from '@/utils/authCheck';
 import VariablesService from '@/services/VariablesService';
 import { useEffect } from 'react';
+import { FeedbackSection } from '@/components';
 
 const theme = createTheme({
   fontFamily: 'Open Sans, sans-serif',
@@ -92,7 +93,6 @@ export default function App() {
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let message = 'Oops!';
   let details = 'An unexpected error occurred.';
-  let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
     message = error.status === 404 ? '404' : 'Error';
@@ -102,18 +102,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
         : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
-    stack = error.stack;
   }
 
   return (
     <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
+      <FeedbackSection status="error" title={message} description={details} />
     </main>
   );
 }

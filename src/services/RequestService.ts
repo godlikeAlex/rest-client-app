@@ -114,7 +114,7 @@ export default class RequestService {
     }
   }
 
-  private static async beautifyData(contentTypeHeader: string, data: string) {
+  static async beautifyData(contentTypeHeader: string, data: string) {
     if (contentTypeHeader.includes('application/json')) {
       return JSON.stringify(data, null, 2);
     } else if (contentTypeHeader.includes('text/html')) {
@@ -123,6 +123,12 @@ export default class RequestService {
         plugins: [parserHtml],
       });
     }
+  }
+
+  static async prettifyJson(data: string) {
+    return prettier.format(data, {
+      parser: 'json',
+    });
   }
 
   private static tryParseBody(body: string): Record<string, unknown> | string {

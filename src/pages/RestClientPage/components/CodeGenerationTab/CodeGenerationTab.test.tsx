@@ -6,6 +6,8 @@ import RestContextProvider, {
 import CodeGenerationTab from './CodeGenerationTab';
 import { createMemoryRouter, RouterProvider } from 'react-router';
 
+vi.mock('@/components/CodeEditor/languages');
+
 vi.mock('@/hooks/useUser', () => ({
   useUser: () => ({
     user: {

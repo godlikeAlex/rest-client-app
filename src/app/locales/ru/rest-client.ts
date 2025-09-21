@@ -30,4 +30,5 @@ export default {
     statusCode: 'Статус-код',
     time: 'Время выполнения',
   },
+  errorPrettify: 'Ошибка, невалидный JSON',
 } satisfies typeof import('@/app/locales/en/rest-client').default;

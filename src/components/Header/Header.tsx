@@ -35,6 +35,9 @@ export default function Header() {
 
           <Flex align="center">
             <Group gap={10}>
+              <Button variant="subtle" component={Link} to={'/'}>
+                {t('home.buttonHome')}
+              </Button>
               {user ? (
                 <Button
                   onClick={async () => await signOutProfile()}

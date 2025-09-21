@@ -10,9 +10,13 @@ vi.mock('@/hooks/useUser', () => ({
   useUser: () => ({
     user: {
       uid: '123',
-      variables: [{ key: 'example', value: '123' }],
+      variables: [{ key: 'example', value: '123', enabled: true }],
     },
   }),
+}));
+
+vi.mock('@codemirror/lang-json', () => ({
+  json: () => () => {},
 }));
 
 const mockData: RestClientState = {

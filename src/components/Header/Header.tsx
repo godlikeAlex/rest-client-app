@@ -18,6 +18,8 @@ import { LocaleLink } from '../LocaleLink';
 import replaceLanguage from '@/utils/replace-language';
 import { useEffect, useState } from 'react';
 
+import classes from './Header.module.scss';
+
 export default function Header() {
   const { t } = useTranslation();
 
@@ -39,22 +41,11 @@ export default function Header() {
   return (
     <Box
       component="header"
-      style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 1000,
-        backgroundColor: 'white',
-        boxShadow: scrolled ? '0 4px 12px rgba(0, 0, 0, 0.1)' : 'none',
-        transition: 'box-shadow 0.3s ease',
-      }}
+      className={`${classes.header} ${scrolled ? classes.headerScrolled : ''}`}
     >
       <Container
         size="ml"
-        style={{
-          paddingTop: scrolled ? '0.5rem' : '2rem',
-          paddingBottom: scrolled ? '0.5rem' : '2rem',
-          transition: 'padding 0.3s ease',
-        }}
+        className={`${classes.container} ${scrolled ? classes.containerScrolled : ''}`}
       >
         <Flex justify="space-between">
           <LocaleLink to="/">

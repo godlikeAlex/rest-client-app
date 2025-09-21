@@ -3,6 +3,7 @@ export default {
   buttonSignIn: 'Sign In',
   buttonSignUp: 'Sign Up',
   buttonSignOut: 'Sign Out',
+  buttonHome: 'Home',
   greetings: 'HomePage',
   back: 'Welcome back',
   restButton: 'REST Client',

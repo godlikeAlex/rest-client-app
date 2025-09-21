@@ -42,6 +42,7 @@ export async function clientLoader({ serverLoader }: Route.ClientLoaderArgs) {
     user: {
       ...user,
       variables,
+      name: user.displayName ?? user.name ?? '',
     },
   };
 }

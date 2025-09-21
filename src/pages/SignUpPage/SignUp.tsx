@@ -53,7 +53,7 @@ export default function SignUp() {
         password: values.password,
         name: values.name || '',
       });
-      const idToken = await user.user.getIdToken();
+      const idToken = await user.user.getIdToken(true);
       const formData = new FormData();
       formData.append('idToken', idToken);
       await fetcher.submit(formData, { method: 'post' });

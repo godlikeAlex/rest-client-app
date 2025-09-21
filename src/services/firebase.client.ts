@@ -22,13 +22,17 @@ const firebaseConfig = {
 
 export async function signIn({ email, password }: SignInParams) {
   const user = await signInWithEmailAndPassword(auth, email, password);
+  console.log(user.user);
   return user;
 }
 
 export async function signUp({ email, password, name }: SignUpParams) {
   const user = await createUserWithEmailAndPassword(auth, email, password);
   const userInfo = user.user;
-  updateProfile(userInfo, { displayName: name });
+  await updateProfile(userInfo, { displayName: name });
+  await userInfo.reload();
+
+  await userInfo.getIdToken(true);
   return user;
 }
 

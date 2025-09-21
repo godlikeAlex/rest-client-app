@@ -18,8 +18,7 @@ export default function WelcomeBanner() {
   const { t } = useTranslation();
   const rootData = useRouteLoaderData('root');
   const user = rootData?.user;
-  const userName = user ? user.name : '';
-
+  const userName = user ? user.displayName || user.name : '';
   return (
     <Center py="xl" mih="80vh">
       {user ? (

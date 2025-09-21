@@ -20,4 +20,8 @@ export default {
     confirmPassword: 'Пожалуйста подвердите пароль',
   },
   button: 'Зарегистрироваться',
+  successTitle: 'Добро пожаловать!',
+  successMessage: 'Ваш аккаунт был успешно создан',
+  errorTitle: 'Ошибка регистрации',
+  errorMessage: 'Что-то пошло не так. Пожалуйста, попробуйте еще раз',
 } satisfies typeof import('@/app/locales/en/signUp').default;

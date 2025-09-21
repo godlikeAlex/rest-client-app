@@ -15,11 +15,12 @@ import {
   Anchor,
 } from '@mantine/core';
 import { isEmail, useForm } from '@mantine/form';
-import { IconAlertCircle } from '@tabler/icons-react';
+import { IconAlertCircle, IconCheck } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFetcher } from 'react-router';
 import { LocaleLink } from '@/components';
+import { notifications } from '@mantine/notifications';
 
 export default function SignUp() {
   const [error, setError] = useState('');
@@ -56,9 +57,22 @@ export default function SignUp() {
       const idToken = await user.user.getIdToken(true);
       const formData = new FormData();
       formData.append('idToken', idToken);
+
       await fetcher.submit(formData, { method: 'post' });
+      notifications.show({
+        title: t('signUp.successTitle'),
+        message: t('signUp.successMessage'),
+        color: 'green',
+        icon: <IconCheck />,
+      });
       setError('');
     } catch (error: unknown) {
+      notifications.show({
+        title: t('signUp.errorTitle'),
+        message: t('signUp.errorMessage'),
+        color: 'red',
+        icon: <IconAlertCircle />,
+      });
       if (error instanceof Error) {
         setError(error.message);
       }

@@ -17,4 +17,8 @@ export default {
   },
   button: 'Sign in',
   error: 'Incorrect login or password',
+  successTitle: 'Welcome back!',
+  successMessage: 'You have successfully signed in',
+  errorTitle: 'Sign in failed',
+  errorMessage: 'Invalid credentials or network error',
 };

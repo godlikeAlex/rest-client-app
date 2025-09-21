@@ -22,7 +22,6 @@ const firebaseConfig = {
 
 export async function signIn({ email, password }: SignInParams) {
   const user = await signInWithEmailAndPassword(auth, email, password);
-  console.log(user.user);
   return user;
 }
 
